@@ -10,15 +10,44 @@ datasource db {
   provider = "postgresql"
 }
 
+model Auth {
+  id       String  @id @default(uuid(7))
+  email    String  @unique
+  password String?
+
+  role Role @default(USER)
+
+  isActive        Boolean @default(true)
+  isEmailVerified Boolean @default(false)
+
+  refreshToken    String?
+  refreshTokenExp DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  otps Otp[]
+  user User?
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
 model User {
-  id           String   @id @default(uuid())
+  id String @id @default(uuid())
+
+  authId String @unique
+  auth   Auth   @relation(fields: [authId], references: [id], onDelete: Cascade)
+
   name         String
-  email        String   @unique
-  password     String?
-  currencyCode String   @default("INR")
-  timezone     String   @default("Asia/Kolkata")
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  currencyCode String @default("INR")
+  timezone     String @default("Asia/Kolkata")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   accounts     Account[]
   categories   Category[]
@@ -89,6 +118,27 @@ model Transaction {
   account  Account          @relation(fields: [accountId], references: [id])
   category Category?        @relation(fields: [categoryId], references: [id])
   tags     TransactionTag[]
+}
+
+model Otp {
+  id         String    @id @default(uuid(7))
+  email      String
+  authId     String?
+  codeHash   String
+  otpType    OtpType
+  expiresAt  DateTime
+  verifiedAt DateTime?
+  attempts   Int       @default(0)
+  createdAt  DateTime  @default(now())
+  auth       Auth?     @relation(fields: [authId], references: [id], onDelete: Cascade)
+
+  @@index([email, otpType])
+  @@index([authId, otpType])
+}
+
+enum OtpType {
+  EMAIL_VERIFICATION
+  FORGOT_PASSWORD
 }
 
 enum PaymentMethod {

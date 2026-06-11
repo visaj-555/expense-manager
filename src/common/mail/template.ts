@@ -75,7 +75,7 @@ export const generateEmailTemplate = (
 <body>
   <div class="container">
     <div class="header">
-      <h1>BANK AND DEFICIT</h1>
+      <h1>PROJECT XYZ</h1>
     </div>
     
     <div class="content">
@@ -84,7 +84,7 @@ export const generateEmailTemplate = (
     </div>
     
     <div class="footer">
-      <p>&copy; ${new Date().getFullYear()} BANK AND DEFICIT. All rights reserved.</p>
+      <p>&copy; ${new Date().getFullYear()} PROJECT XYZ. All rights reserved.</p>
       <p>
         <a href="#">Contact Us</a> &nbsp;|&nbsp; <a href="#">Unsubscribe</a>
       </p>

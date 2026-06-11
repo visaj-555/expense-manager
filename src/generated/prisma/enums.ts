@@ -72,3 +72,13 @@ export const BudgetPeriod = {
 } as const
 
 export type BudgetPeriod = (typeof BudgetPeriod)[keyof typeof BudgetPeriod]
+
+
+export const RecurringFrequency = {
+  DAILY: 'DAILY',
+  WEEKLY: 'WEEKLY',
+  MONTHLY: 'MONTHLY',
+  YEARLY: 'YEARLY'
+} as const
+
+export type RecurringFrequency = (typeof RecurringFrequency)[keyof typeof RecurringFrequency]

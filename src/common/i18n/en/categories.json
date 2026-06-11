@@ -1,0 +1,35 @@
+{
+  "validation": {
+    "name_required": "Category name is required",
+    "name_string": "Category name must be a string",
+    "name_max_length": "Category name must not exceed 100 characters",
+    "type_required": "Category type is required",
+    "invalid_type": "Invalid category type selected",
+    "icon_string": "Category icon must be a string",
+    "icon_max_length": "Category icon must not exceed 10 characters",
+    "color_string": "Category color must be a string",
+    "color_max_length": "Category color must not exceed 7 characters",
+    "search_string": "Search term must be a string",
+    "search_max_length": "Search term must not exceed 100 characters",
+    "is_archived_boolean": "Archived status must be a boolean value",
+    "invalid_order_by": "Invalid sort field selected",
+    "invalid_order": "Invalid sort order selected"
+  },
+
+  "errors": {
+    "notFound": "Category not found",
+    "alreadyArchived": "Category is already archived",
+    "alreadyActive": "Category is already active",
+    "duplicateName": "A category with this name already exists",
+    "deleteBlocked": "Category cannot be deleted because it is currently in use"
+  },
+
+  "success": {
+    "created": "Category created successfully",
+    "fetched": "Categories fetched successfully",
+    "updated": "Category updated successfully",
+    "archived": "Category archived successfully",
+    "restored": "Category restored successfully",
+    "deleted": "Category deleted successfully"
+  }
+}

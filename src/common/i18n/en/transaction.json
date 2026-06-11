@@ -1,0 +1,50 @@
+{
+  "validation": {
+    "title_required": "Transaction title is required",
+    "title_string": "Transaction title must be a string",
+    "title_max_length": "Transaction title must not exceed 150 characters",
+    "type_required": "Transaction type is required",
+    "invalid_type": "Invalid transaction type selected",
+    "transfer_not_allowed": "Use the transfers endpoint for transfer transactions",
+    "amount_required": "Amount is required",
+    "amount_number": "Amount must be a valid number",
+    "amount_min": "Amount must be greater than 0",
+    "transaction_date_required": "Transaction date is required",
+    "transaction_date_invalid": "Transaction date must be a valid date",
+    "account_id_required": "Account ID is required",
+    "account_id_invalid": "Account ID must be a valid UUID",
+    "category_id_invalid": "Category ID must be a valid UUID",
+    "invalid_payment_method": "Invalid payment method selected",
+    "notes_string": "Notes must be a string",
+    "notes_max_length": "Notes must not exceed 500 characters",
+    "location_string": "Location must be a string",
+    "location_max_length": "Location must not exceed 200 characters",
+    "start_date_invalid": "Start date must be a valid date",
+    "end_date_invalid": "End date must be a valid date",
+    "search_string": "Search term must be a string",
+    "search_max_length": "Search term must not exceed 150 characters",
+    "min_amount_number": "Minimum amount must be a valid number",
+    "min_amount_min": "Minimum amount cannot be negative",
+    "max_amount_number": "Maximum amount must be a valid number",
+    "max_amount_min": "Maximum amount cannot be negative",
+    "invalid_order_by": "Invalid sort field selected",
+    "invalid_order": "Invalid sort order selected"
+  },
+
+  "errors": {
+    "notFound": "Transaction not found",
+    "accountNotFound": "Account not found",
+    "categoryNotFound": "Category not found",
+    "insufficientBalance": "Insufficient account balance",
+    "accountArchived": "Cannot create a transaction for an archived account",
+    "categoryArchived": "Cannot use an archived category",
+    "invalidDateRange": "Start date cannot be later than end date"
+  },
+
+  "success": {
+    "created": "Transaction created successfully",
+    "fetched": "Transactions fetched successfully",
+    "updated": "Transaction updated successfully",
+    "deleted": "Transaction deleted successfully"
+  }
+}

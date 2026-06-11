@@ -48,8 +48,8 @@ async function bootstrap() {
 
   // ------------------ Swagger Config ------------------
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('BANK AND DEFICIT API')
-    .setDescription('API documentation for BANK AND DEFICIT backend')
+    .setTitle('PROJECT XYZ')
+    .setDescription('API documentation for PROJECT XYZ backend')
     .setVersion('1.0')
 
     .addBearerAuth(
@@ -88,6 +88,9 @@ async function bootstrap() {
 
   const port = process.env.PORT ?? 3000;
   await app.listen(port);
+
+  console.log(`🚀 Application running at http://localhost:${port}/api/v1`);
+  console.log(`📚 Swagger available at http://localhost:${port}/api`);
 
 
   app.useGlobalFilters(new MulterExceptionFilter());

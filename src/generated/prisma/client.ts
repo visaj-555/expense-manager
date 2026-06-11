@@ -70,11 +70,6 @@ export type Transaction = Prisma.TransactionModel
  */
 export type Otp = Prisma.OtpModel
 /**
- * Model TransactionTag
- * 
- */
-export type TransactionTag = Prisma.TransactionTagModel
-/**
  * Model Transfer
  * 
  */
@@ -90,12 +85,12 @@ export type Goal = Prisma.GoalModel
  */
 export type Budget = Prisma.BudgetModel
 /**
- * Model Tag
- * 
- */
-export type Tag = Prisma.TagModel
-/**
  * Model Attachment
  * 
  */
 export type Attachment = Prisma.AttachmentModel
+/**
+ * Model RecurringTransaction
+ * 
+ */
+export type RecurringTransaction = Prisma.RecurringTransactionModel

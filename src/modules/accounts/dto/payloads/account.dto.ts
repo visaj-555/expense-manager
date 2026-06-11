@@ -1,21 +1,31 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, Min } from 'class-validator';
+import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength, Min } from 'class-validator';
 import { AccountType } from 'src/generated/prisma/client';
+import { PaginationDto } from 'src/common/common.exports';
+import { Transform } from 'class-transformer';
+import { i18nValidationMessage } from 'nestjs-i18n';
 
 export class CreateAccountDto {
-    @ApiProperty({ example: 'My Bank Account' })
-    @IsString()
-    @IsNotEmpty()
-    name: string;
+ @IsString({
+  message: i18nValidationMessage('accounts.validation.name_string'),
+})
+@IsNotEmpty({
+  message: i18nValidationMessage('accounts.validation.name_required'),
+})
+name: string;
 
-    @ApiProperty({ enum: AccountType })
-    @IsEnum(AccountType)
-    type: AccountType;
+    @IsEnum(AccountType, {
+  message: i18nValidationMessage('accounts.validation.invalid_type'),
+})
+type: AccountType;
 
-    @ApiProperty({ example: 1000.00 })
-    @IsNumber()
-    @Min(0)
-    openingBalance: number;
+@IsNumber({}, {
+  message: i18nValidationMessage('accounts.validation.opening_balance_number'),
+})
+@Min(0, {
+  message: i18nValidationMessage('accounts.validation.opening_balance_min'),
+})
+openingBalance: number;
 }
 
 export class UpdateAccountDto {
@@ -39,4 +49,37 @@ export class UpdateAccountDto {
   @IsBoolean()
   @IsOptional()
   isArchived?: boolean;
+}
+
+export class AccountQueryDto extends PaginationDto {
+  @ApiPropertyOptional({ enum: AccountType, description: 'Filter by account type' })
+  @IsOptional()
+  @IsEnum(AccountType)
+  type?: AccountType;
+ 
+  @ApiPropertyOptional({ example: false, description: 'Include archived accounts' })
+  @IsOptional()
+  @Transform(({ value }) => value === 'true' || value === true)
+  @IsBoolean()
+  isArchived?: boolean = false;
+ 
+  @ApiPropertyOptional({ example: 'hdfc', description: 'Search by account name' })
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  search?: string;
+ 
+  @ApiPropertyOptional({
+    enum: ['name', 'createdAt', 'updatedAt'],
+    default: 'createdAt',
+    description: 'Field to sort by',
+  })
+  @IsOptional()
+  @IsEnum(['name', 'createdAt', 'updatedAt'])
+  orderBy?: 'name' | 'createdAt' | 'updatedAt' = 'createdAt';
+ 
+  @ApiPropertyOptional({ enum: ['asc', 'desc'], default: 'desc' })
+  @IsOptional()
+  @IsEnum(['asc', 'desc'])
+  order?: 'asc' | 'desc' = 'desc';
 }

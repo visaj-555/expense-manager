@@ -57,12 +57,11 @@ export const ModelName = {
   Category: 'Category',
   Transaction: 'Transaction',
   Otp: 'Otp',
-  TransactionTag: 'TransactionTag',
   Transfer: 'Transfer',
   Goal: 'Goal',
   Budget: 'Budget',
-  Tag: 'Tag',
-  Attachment: 'Attachment'
+  Attachment: 'Attachment',
+  RecurringTransaction: 'RecurringTransaction'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -172,14 +171,6 @@ export const OtpScalarFieldEnum = {
 export type OtpScalarFieldEnum = (typeof OtpScalarFieldEnum)[keyof typeof OtpScalarFieldEnum]
 
 
-export const TransactionTagScalarFieldEnum = {
-  transactionId: 'transactionId',
-  tagId: 'tagId'
-} as const
-
-export type TransactionTagScalarFieldEnum = (typeof TransactionTagScalarFieldEnum)[keyof typeof TransactionTagScalarFieldEnum]
-
-
 export const TransferScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -198,6 +189,7 @@ export const GoalScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   name: 'name',
+  isCompleted: 'isCompleted',
   targetAmount: 'targetAmount',
   targetDate: 'targetDate',
   createdAt: 'createdAt'
@@ -218,16 +210,6 @@ export const BudgetScalarFieldEnum = {
 export type BudgetScalarFieldEnum = (typeof BudgetScalarFieldEnum)[keyof typeof BudgetScalarFieldEnum]
 
 
-export const TagScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  name: 'name',
-  createdAt: 'createdAt'
-} as const
-
-export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
-
-
 export const AttachmentScalarFieldEnum = {
   id: 'id',
   transactionId: 'transactionId',
@@ -236,6 +218,28 @@ export const AttachmentScalarFieldEnum = {
 } as const
 
 export type AttachmentScalarFieldEnum = (typeof AttachmentScalarFieldEnum)[keyof typeof AttachmentScalarFieldEnum]
+
+
+export const RecurringTransactionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  accountId: 'accountId',
+  categoryId: 'categoryId',
+  type: 'type',
+  amount: 'amount',
+  title: 'title',
+  notes: 'notes',
+  frequency: 'frequency',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  lastProcessed: 'lastProcessed',
+  nextRunDate: 'nextRunDate',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RecurringTransactionScalarFieldEnum = (typeof RecurringTransactionScalarFieldEnum)[keyof typeof RecurringTransactionScalarFieldEnum]
 
 
 export const SortOrder = {

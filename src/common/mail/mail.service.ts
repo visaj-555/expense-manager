@@ -94,7 +94,7 @@ export class MailService implements OnModuleInit {
     this.logger.log(`Subject: ${options.subject}`);
 
     const mailOptions = {
-      from: `"${process.env.MAIL_FROM_NAME ?? 'BANK AND DEFICIT'}" <${process.env.SMTP_USER}>`,
+      from: `"${process.env.MAIL_FROM_NAME ?? 'PROJECT XYZ'}" <${process.env.SMTP_USER}>`,
       to: options.to,
       subject: options.subject,
       text: options.text,
@@ -117,14 +117,14 @@ export class MailService implements OnModuleInit {
   async sendOtp(email: string, otp: string): Promise<void> {
     const subject = 'Your OTP for Verification';
     const message = `
-      <p>Thank you for registering with <strong>BANK AND DEFICIT</strong>.</p>
+      <p>Thank you for registering with <strong>PROJECT XYZ</strong>.</p>
       <p>Your One-Time Password (OTP) for account verification is:</p>
       <div style="margin:20px 0;padding:15px;background:#f3faf8;border:1px solid #d1ece5;text-align:center;font-weight:bold;font-size:24px;letter-spacing:4px;color:#309d81;">
         ${otp}
       </div>
       <p>This OTP is valid for <strong>5 minutes</strong>.<br />Please enter this code on the verification page to complete your registration process.</p>
       <p>We look forward to having you as part of the movement that turns small deeds into global change.</p>
-      <p>Warm regards,<br />Team BANK AND DEFICIT</p>
+      <p>Warm regards,<br />Team PROJECT XYZ</p>
     `;
     await this.sendEmail({
       to: email,
@@ -138,13 +138,13 @@ export class MailService implements OnModuleInit {
     const subject = 'Reset Password OTP';
     const message = `
       <p>Hi,</p>
-      <p>We received a request to reset your password for your <strong>BANK AND DEFICIT</strong> account.</p>
+      <p>We received a request to reset your password for your <strong>PROJECT XYZ</strong> account.</p>
       <p>Your One-Time Password (OTP) to reset your password is:</p>
       <div style="margin:20px 0;padding:15px;background:#f3faf8;border:1px solid #d1ece5;text-align:center;font-weight:bold;font-size:24px;letter-spacing:4px;color:#309d81;">
         ${otp}
       </div>
       <p>This OTP is valid for <strong>5 minutes</strong>.<br />Please enter this code on the password reset page to proceed.</p>
-      <p>Stay secure,<br />Team BANK AND DEFICIT</p>
+      <p>Stay secure,<br />Team PROJECT XYZ</p>
     `;
     await this.sendEmail({
       to: email,
@@ -158,7 +158,7 @@ export class MailService implements OnModuleInit {
     const subject = 'Password Updated Successfully';
     const message = `
       <p>Hi,</p>
-      <p>Your password for your <strong>BANK AND DEFICIT</strong> account has been successfully updated.</p>
+      <p>Your password for your <strong>PROJECT XYZ</strong> account has been successfully updated.</p>
       <p>If you made this change, no further action is required.</p>
       <p>However, if you did not update your password, please contact our support team immediately to secure your account.</p>
       <p>For security reasons, we recommend:</p>
@@ -166,7 +166,7 @@ export class MailService implements OnModuleInit {
         <li>Using a strong and unique password</li>
         <li>Not sharing your login credentials with anyone</li>
       </ul>
-      <p>Thank you for being a part of <strong>BANK AND DEFICIT</strong>.<br />Warm regards,<br />Team BANK AND DEFICIT</p>
+      <p>Thank you for being a part of <strong>PROJECT XYZ</strong>.<br />Warm regards,<br />Team PROJECT XYZ</p>
     `;
     await this.sendEmail({
       to: email,

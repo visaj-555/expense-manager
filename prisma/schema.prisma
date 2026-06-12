@@ -55,6 +55,7 @@ model User {
   goals                 Goal[]
   budgets               Budget[]
   recurringTransactions RecurringTransaction[]
+  transfers             Transfer[]
 }
 
 model Account {
@@ -69,6 +70,8 @@ model Account {
 
   transactions          Transaction[]
   recurringTransactions RecurringTransaction[]
+  transfersFrom         Transfer[]             @relation("TransferFrom")
+  transfersTo           Transfer[]             @relation("TransferTo")
   user                  User                   @relation(fields: [userId], references: [id])
 }
 
@@ -167,6 +170,10 @@ model Transfer {
   note          String?
   transferDate  DateTime
   createdAt     DateTime @default(now())
+
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fromAccount Account @relation("TransferFrom", fields: [fromAccountId], references: [id], onDelete: Restrict)
+  toAccount   Account @relation("TransferTo", fields: [toAccountId], references: [id], onDelete: Restrict)
 }
 
 model Goal {
@@ -175,6 +182,7 @@ model Goal {
   name         String
   isCompleted  Boolean   @default(false)
   targetAmount Decimal   @db.Decimal(15, 2)
+  currentAmount Decimal   @default(0) @db.Decimal(15, 2)
   targetDate   DateTime?
   createdAt    DateTime  @default(now())
 

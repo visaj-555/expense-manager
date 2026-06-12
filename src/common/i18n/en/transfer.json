@@ -1,0 +1,14 @@
+{
+  "success": {
+    "created": "Transfer created successfully",
+    "fetched": "Transfers fetched successfully",
+    "updated": "Transfer updated successfully",
+    "deleted": "Transfer deleted successfully"
+  },
+  "errors": {
+    "notFound": "Transfer not found",
+    "forbidden": "You do not have permission to access this transfer",
+    "sameAccount": "Source and destination accounts cannot be the same",
+    "invalidAccount": "Invalid source or destination account"
+  }
+}

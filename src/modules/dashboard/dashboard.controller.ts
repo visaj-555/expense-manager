@@ -1,34 +1,27 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { I18n, I18nContext } from 'nestjs-i18n';
 import { DashboardService } from './dashboard.service';
-import { CreateDashboardDto } from './dto/create-dashboard.dto';
-import { UpdateDashboardDto } from './dto/update-dashboard.dto';
+import { JwtAuthGuard } from '../auth/guards/auth.guard';
+import { GetUser } from 'src/common/decorators/get-user';
+import { DashboardResponseDto } from './dto/dashboard.response.dto';
+import { ApiResponse } from 'src/common/common.exports';
 
+@ApiTags('Dashboard')
+@ApiBearerAuth('JWT-auth')
+@UseGuards(JwtAuthGuard)
 @Controller('dashboard')
 export class DashboardController {
   constructor(private readonly dashboardService: DashboardService) {}
 
-  @Post()
-  create(@Body() createDashboardDto: CreateDashboardDto) {
-    return this.dashboardService.create(createDashboardDto);
-  }
-
   @Get()
-  findAll() {
-    return this.dashboardService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.dashboardService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDashboardDto: UpdateDashboardDto) {
-    return this.dashboardService.update(+id, updateDashboardDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.dashboardService.remove(+id);
+  @ApiOperation({ summary: 'Get comprehensive financial dashboard data' })
+  @ApiOkResponse({ type: DashboardResponseDto })
+  async getDashboard(
+    @GetUser('userId') userId: string,
+    @I18n() i18n: I18nContext,
+  ) {
+    const data = await this.dashboardService.getDashboard(userId);
+    return ApiResponse.success(data, i18n.t('dashboard.success.fetched'));
   }
 }

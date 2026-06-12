@@ -1,0 +1,9 @@
+{
+  "success": {
+    "monthlyCategoryAnalysisFetched": "Monthly category analysis fetched successfully",
+    "yearlyCategoryAnalysisFetched": "Yearly category analysis fetched successfully",
+    "categoryTrendFetched": "Category trend fetched successfully",
+    "cashflowTrendFetched": "Cashflow trend fetched successfully",
+    "topExpensesFetched": "Top expenses fetched successfully"
+  }
+}

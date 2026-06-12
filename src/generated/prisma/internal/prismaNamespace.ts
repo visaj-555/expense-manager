@@ -1378,6 +1378,7 @@ export const GoalScalarFieldEnum = {
   name: 'name',
   isCompleted: 'isCompleted',
   targetAmount: 'targetAmount',
+  currentAmount: 'currentAmount',
   targetDate: 'targetDate',
   createdAt: 'createdAt'
 } as const

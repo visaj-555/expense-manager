@@ -1,0 +1,13 @@
+{
+  "success": {
+    "created": "Goal created successfully",
+    "fetched": "Goals fetched successfully",
+    "updated": "Goal updated successfully",
+    "completed": "Goal marked as completed",
+    "deleted": "Goal deleted successfully"
+  },
+  "errors": {
+    "notFound": "Goal not found",
+    "forbidden": "You do not have permission to access this goal"
+  }
+}

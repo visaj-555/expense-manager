@@ -36,6 +36,12 @@ const ACCOUNT_WITH_BALANCE_SELECT = {
     where: { type: { in: ['INCOME', 'EXPENSE'] } },
     select: { type: true, amount: true },
   },
+  transfersFrom: {
+    select: { amount: true },
+  },
+  transfersTo: {
+    select: { amount: true },
+  },
 } satisfies Prisma.AccountSelect;
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -47,12 +53,17 @@ type RawAccountWithBalance = Prisma.AccountGetPayload<{
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function formatAccount(raw: RawAccountWithBalance) {
-  const delta = raw.transactions.reduce((sum, tx) => {
+  const txDelta = raw.transactions.reduce((sum, tx) => {
     const amt = Number(tx.amount);
     return tx.type === 'INCOME' ? sum + amt : sum - amt;
   }, 0);
 
-  const { transactions, _count, ...rest } = raw;
+  const transfersOut = raw.transfersFrom?.reduce((sum, tr) => sum + Number(tr.amount), 0) || 0;
+  const transfersIn = raw.transfersTo?.reduce((sum, tr) => sum + Number(tr.amount), 0) || 0;
+
+  const delta = txDelta - transfersOut + transfersIn;
+
+  const { transactions, transfersFrom, transfersTo, _count, ...rest } = raw;
 
   return {
     ...rest,

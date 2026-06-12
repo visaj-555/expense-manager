@@ -5,24 +5,24 @@ import {
   APP_INTERCEPTOR,
   APP_PIPE,
 } from '@nestjs/core';
-
 import {
   I18nModule,
   QueryResolver,
   AcceptLanguageResolver,
 } from 'nestjs-i18n';
-
 import * as path from 'path';
-
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
-
 import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { AccountsModule } from './modules/accounts/accounts.module';
 import { TransactionsModule } from './modules/transactions/transactions.module';
+import { TransfersModule } from './modules/transfers/transfers.module';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { GoalsModule } from './modules/goals/goals.module';
+import { AnalyticsModule } from './modules/analytics/analytics.module';
 
 // ------------ ENVIRONMENT NORMALIZATION ------------ //
 const NODE_ENV = process.env.NODE_ENV ?? 'development';
@@ -65,9 +65,14 @@ console.log('isProd:', isProd);
     }),
 
     AuthModule,
-    CategoriesModule, 
+    CategoriesModule,
     AccountsModule,
-    TransactionsModule
+    TransactionsModule,
+    TransfersModule,
+    DashboardModule,
+    GoalsModule,
+    TransfersModule,
+    AnalyticsModule
 
   ],
 
@@ -105,4 +110,4 @@ console.log('isProd:', isProd);
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }

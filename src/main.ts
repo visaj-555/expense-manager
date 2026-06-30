@@ -28,6 +28,7 @@ async function bootstrap() {
       'https://stag.d3eh7bdhx8gko7.amplifyapp.com',
       'http://127.0.0.1:5500',
       'http://localhost:5500',
+      'http://localhost:5173'
     ],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: [

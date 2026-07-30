@@ -2,8 +2,8 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength, Min } from 'class-validator';
 import { AccountType } from 'src/generated/prisma/client';
 import { PaginationDto } from 'src/common/common.exports';
-import { Transform } from 'class-transformer';
 import { i18nValidationMessage } from 'nestjs-i18n';
+import { ToBooleanQuery } from 'src/common/helpers/to-boolean-query';
 
 export class CreateAccountDto {
  @IsString({
@@ -57,9 +57,9 @@ export class AccountQueryDto extends PaginationDto {
   @IsEnum(AccountType)
   type?: AccountType;
  
-  @ApiPropertyOptional({ example: false, description: 'Include archived accounts' })
+  @ApiPropertyOptional({ example: false, description: 'Filter archived accounts' })
   @IsOptional()
-  @Transform(({ value }) => value === 'true' || value === true)
+  @ToBooleanQuery(false)
   @IsBoolean()
   isArchived?: boolean = false;
  

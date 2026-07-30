@@ -7,10 +7,10 @@ import {
     IsBoolean,
     MaxLength,
 } from 'class-validator';
-import { Transform } from 'class-transformer';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { CategoryType } from 'src/generated/prisma/enums';
 import { i18nValidationMessage } from 'nestjs-i18n';
+import { ToBooleanQuery } from 'src/common/helpers/to-boolean-query';
 
 // ─── Create ───────────────────────────────────────────────────────────────────
 
@@ -57,10 +57,13 @@ export class CategoryQueryDto extends PaginationDto {
     @IsEnum(CategoryType)
     type?: CategoryType;
 
+    @ApiPropertyOptional({ example: false, description: 'Filter archived categories' })
+    @IsOptional()
+    @ToBooleanQuery(false)
     @IsBoolean({
         message: i18nValidationMessage('categories.validation.is_archived_boolean'),
     })
-    isArchived?: boolean;
+    isArchived?: boolean = false;
 
     @ApiPropertyOptional({ example: 'food', description: 'Search by category name' })
     @IsOptional()

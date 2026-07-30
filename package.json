@@ -12,13 +12,15 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "echo \"ESLint is disabled for this project\"",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --max-warnings=50",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "seed:categories": "tsx src/common/seeders/seed-categories.ts"
+    "seed:categories": "tsx src/common/seeders/seed-categories.ts",
+    "prepare": "husky",
+    "prepush": "npm run lint"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1058.0",
@@ -62,6 +64,7 @@
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.2",
     "globals": "^17.0.0",
+    "husky": "^9.1.7",
     "jest": "^30.0.0",
     "prettier": "^3.4.2",
     "prisma": "^7.7.0",
@@ -72,7 +75,7 @@
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.20.0"
+    "typescript-eslint": "^8.65.0"
   },
   "jest": {
     "moduleFileExtensions": [

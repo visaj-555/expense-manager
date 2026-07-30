@@ -47,7 +47,6 @@ export class MailService implements OnModuleInit {
       },
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     this.transporter = nodemailer.createTransport(options);
   }
 
@@ -57,7 +56,6 @@ export class MailService implements OnModuleInit {
 
   private async verifyConnection(): Promise<void> {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       await this.transporter.verify();
       this.isMailServiceReady = true;
       this.logger.log('✅ Mail service connected successfully');
@@ -102,11 +100,9 @@ export class MailService implements OnModuleInit {
       attachments: options.attachments,
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     const result = await this.transporter.sendMail(mailOptions);
 
     return {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       messageId: result.messageId as string,
       to: options.to,
       subject: options.subject,

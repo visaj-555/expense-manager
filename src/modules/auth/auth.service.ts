@@ -6,7 +6,6 @@ import {
   BadRequestException,
   ConflictException,
   ForbiddenException,
-  InternalServerErrorException,
   NotFoundException,
   TooManyRequestsException,
   UnauthorizedException,

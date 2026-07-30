@@ -63,7 +63,7 @@ function formatAccount(raw: RawAccountWithBalance) {
 
   const delta = txDelta - transfersOut + transfersIn;
 
-  const { transactions, transfersFrom, transfersTo, _count, ...rest } = raw;
+  const { transactions: _transactions, transfersFrom: _transfersFrom, transfersTo: _transfersTo, _count, ...rest } = raw;
 
   return {
     ...rest,

@@ -4,10 +4,10 @@ import { PassportModule } from '@nestjs/passport';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
 import { TokenService } from './token.service';
+import { RefreshTokenService } from './refresh-token.service';
 import { CommonModule } from 'src/common/common.module';
 import { AuthController } from './auth.controller';
 import { JwtStrategy } from './jwt.strategy';
-import { RedisService } from '../redis/redis.service';
 
 @Module({
   imports: [
@@ -39,7 +39,7 @@ import { RedisService } from '../redis/redis.service';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, TokenService, JwtStrategy, RedisService],
+  providers: [AuthService, TokenService, RefreshTokenService, JwtStrategy],
   exports: [TokenService, PassportModule, JwtStrategy],
 })
 export class AuthModule { }

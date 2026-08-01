@@ -1,8 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class DashboardOverviewDto {
-  @ApiProperty()
-  totalBalance: number;
+  @ApiProperty({ description: 'Sum of BANK account balances' })
+  currentBalance: number;
+
+  @ApiProperty({
+    description: 'Sum of SAVINGS (and legacy WALLET) account balances',
+  })
+  currentWalletBalance: number;
 
   @ApiProperty()
   monthlyIncome: number;

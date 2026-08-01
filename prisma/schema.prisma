@@ -20,15 +20,36 @@ model Auth {
   isActive        Boolean @default(true)
   isEmailVerified Boolean @default(false)
 
-  refreshToken    String?
-  refreshTokenExp DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  otps          Otp[]
+  refreshTokens RefreshToken[]
+  user          User?
+}
+
+model RefreshToken {
+  id        String @id @default(uuid(7))
+  authId    String
+  tokenHash String @unique
+
+  expiresAt DateTime
+  revokedAt DateTime?
+
+  userAgent   String?
+  ipAddress   String?
+  deviceLabel String?
+
+  replacedById String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Relations
-  otps Otp[]
-  user User?
+  auth Auth @relation(fields: [authId], references: [id], onDelete: Cascade)
+
+  @@index([authId])
+  @@index([authId, revokedAt, expiresAt])
+  @@index([expiresAt])
 }
 
 enum Role {
@@ -76,11 +97,8 @@ model Account {
 }
 
 enum AccountType {
-  CASH
   BANK
-  CREDIT_CARD
   SAVINGS
-  INVESTMENT
   WALLET
 }
 
@@ -177,14 +195,14 @@ model Transfer {
 }
 
 model Goal {
-  id           String    @id @default(uuid())
-  userId       String
-  name         String
-  isCompleted  Boolean   @default(false)
-  targetAmount Decimal   @db.Decimal(15, 2)
+  id            String    @id @default(uuid())
+  userId        String
+  name          String
+  isCompleted   Boolean   @default(false)
+  targetAmount  Decimal   @db.Decimal(15, 2)
   currentAmount Decimal   @default(0) @db.Decimal(15, 2)
-  targetDate   DateTime?
-  createdAt    DateTime  @default(now())
+  targetDate    DateTime?
+  createdAt     DateTime  @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

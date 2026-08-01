@@ -18,11 +18,8 @@ export type Role = (typeof Role)[keyof typeof Role]
 
 
 export const AccountType = {
-  CASH: 'CASH',
   BANK: 'BANK',
-  CREDIT_CARD: 'CREDIT_CARD',
   SAVINGS: 'SAVINGS',
-  INVESTMENT: 'INVESTMENT',
   WALLET: 'WALLET'
 } as const
 

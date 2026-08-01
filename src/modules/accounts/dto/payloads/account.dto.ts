@@ -6,26 +6,29 @@ import { i18nValidationMessage } from 'nestjs-i18n';
 import { ToBooleanQuery } from 'src/common/helpers/to-boolean-query';
 
 export class CreateAccountDto {
- @IsString({
-  message: i18nValidationMessage('accounts.validation.name_string'),
-})
-@IsNotEmpty({
-  message: i18nValidationMessage('accounts.validation.name_required'),
-})
-name: string;
+  @IsString({
+    message: i18nValidationMessage('accounts.validation.name_string'),
+  })
+  @IsNotEmpty({
+    message: i18nValidationMessage('accounts.validation.name_required'),
+  })
+  name: string;
 
-    @IsEnum(AccountType, {
-  message: i18nValidationMessage('accounts.validation.invalid_type'),
-})
-type: AccountType;
+  @IsEnum(AccountType, {
+    message: i18nValidationMessage('accounts.validation.invalid_type'),
+  })
+  type: AccountType;
 
-@IsNumber({}, {
-  message: i18nValidationMessage('accounts.validation.opening_balance_number'),
-})
-@Min(0, {
-  message: i18nValidationMessage('accounts.validation.opening_balance_min'),
-})
-openingBalance: number;
+  @IsNumber(
+    {},
+    {
+      message: i18nValidationMessage('accounts.validation.current_balance_number'),
+    },
+  )
+  @Min(0, {
+    message: i18nValidationMessage('accounts.validation.current_balance_min'),
+  })
+  currentBalance: number;
 }
 
 export class UpdateAccountDto {
@@ -39,11 +42,11 @@ export class UpdateAccountDto {
   @IsOptional()
   type?: AccountType;
 
-  @ApiPropertyOptional({ example: 500.00 })
+  @ApiPropertyOptional({ example: 500.0 })
   @IsNumber()
   @Min(0)
   @IsOptional()
-  openingBalance?: number;
+  currentBalance?: number;
 
   @ApiPropertyOptional({ example: false })
   @IsBoolean()
@@ -56,19 +59,19 @@ export class AccountQueryDto extends PaginationDto {
   @IsOptional()
   @IsEnum(AccountType)
   type?: AccountType;
- 
+
   @ApiPropertyOptional({ example: false, description: 'Filter archived accounts' })
   @IsOptional()
   @ToBooleanQuery(false)
   @IsBoolean()
   isArchived?: boolean = false;
- 
+
   @ApiPropertyOptional({ example: 'hdfc', description: 'Search by account name' })
   @IsOptional()
   @IsString()
   @MaxLength(100)
   search?: string;
- 
+
   @ApiPropertyOptional({
     enum: ['name', 'createdAt', 'updatedAt'],
     default: 'createdAt',
@@ -77,7 +80,7 @@ export class AccountQueryDto extends PaginationDto {
   @IsOptional()
   @IsEnum(['name', 'createdAt', 'updatedAt'])
   orderBy?: 'name' | 'createdAt' | 'updatedAt' = 'createdAt';
- 
+
   @ApiPropertyOptional({ enum: ['asc', 'desc'], default: 'desc' })
   @IsOptional()
   @IsEnum(['asc', 'desc'])

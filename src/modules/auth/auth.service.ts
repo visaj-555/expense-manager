@@ -1,5 +1,4 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { MailService } from 'src/common/mail/mail.service';
 import { PrismaService } from 'src/common/database/prisma.service';
 import {
@@ -24,7 +23,7 @@ import {
   ChangePasswordDto,
   ResetPasswordDto,
 } from './dto/payloads/password.dto';
-import { RedisService } from '../redis/redis.service';
+import { RefreshTokenService } from './refresh-token.service';
 import { RegisterDto } from './dto/payloads/register.dto';
 import * as bcrypt from 'bcrypt';
 import { Role } from 'src/generated/prisma/enums';
@@ -37,8 +36,7 @@ export class AuthService {
     private readonly prisma: PrismaService,
     private readonly mailService: MailService,
     private readonly tokenService: TokenService,
-    private readonly redisService: RedisService,
-    private readonly configService: ConfigService,
+    private readonly refreshTokenService: RefreshTokenService,
   ) { }
 
   // ============== REGISTER ============== //
@@ -54,8 +52,6 @@ export class AuthService {
         role: true,
         isActive: true,
         isEmailVerified: true,
-        refreshToken: true,
-        refreshTokenExp: true,
         createdAt: true,
         updatedAt: true,
       },
@@ -129,8 +125,6 @@ export class AuthService {
           role: true,
           isActive: true,
           isEmailVerified: true,
-          refreshToken: true,
-          refreshTokenExp: true,
           createdAt: true,
           updatedAt: true,
         },
@@ -175,8 +169,6 @@ export class AuthService {
         role: true,
         isActive: true,
         isEmailVerified: true,
-        refreshToken: true,
-        refreshTokenExp: true,
         createdAt: true,
         updatedAt: true,
       },
@@ -366,17 +358,11 @@ export class AuthService {
       userId: auth.user.id,
     });
 
-    // ------------ STORE REFRESH TOKEN IN REDIS ------------ //
-    const refreshTokenKey = `refreshToken:${auth.id}`;
-    const refreshTokenTTL = this.configService.get<number>(
-      'JWT_REFRESH_TTL_SECONDS',
-    );
-
-    await this.redisService.set(
-      refreshTokenKey,
+    // ------------ STORE REFRESH TOKEN IN DB ------------ //
+    await this.refreshTokenService.persist({
+      authId: auth.id,
       refreshToken,
-      Number(refreshTokenTTL),
-    );
+    });
 
     // ------------ RETURN RESPONSE ------------ //
     return {
@@ -443,18 +429,19 @@ export class AuthService {
 
     const userId = auth.user.id;
 
-    // ------------ VALIDATE AGAINST REDIS ------------ //
-    const refreshTokenKey = `refreshToken:${payload.authId}`;
-    const storedToken = await this.redisService.get(refreshTokenKey);
+    // ------------ VALIDATE AGAINST DB ALLOWLIST ------------ //
+    const stored = await this.refreshTokenService.findValidByRawToken(
+      refreshToken,
+    );
 
-    if (!storedToken || storedToken !== refreshToken) {
+    if (!stored || stored.authId !== auth.id) {
       throw new UnauthorizedException(
         'INVALID_REFRESH_TOKEN',
         'auth.errors.invalidRefreshToken',
       );
     }
 
-    // ------------ GENERATE NEW TOKENS ------------ //
+    // ------------ GENERATE NEW TOKENS (ROTATE) ------------ //
     const newAccessToken = this.tokenService.generateAccessToken({
       authId: auth.id,
       role: auth.role,
@@ -467,15 +454,14 @@ export class AuthService {
       userId,
     });
 
-    const refreshTokenTTL = this.configService.get<number>(
-      'JWT_REFRESH_TTL_SECONDS',
-    );
-
-    await this.redisService.set(
-      refreshTokenKey,
-      newRefreshToken,
-      Number(refreshTokenTTL),
-    );
+    await this.refreshTokenService.persist({
+      authId: auth.id,
+      refreshToken: newRefreshToken,
+      replaceTokenId: stored.id,
+      userAgent: stored.userAgent ?? undefined,
+      ipAddress: stored.ipAddress ?? undefined,
+      deviceLabel: stored.deviceLabel ?? undefined,
+    });
 
     return {
       accessToken: newAccessToken,
@@ -630,8 +616,7 @@ export class AuthService {
       data: { password: hashedPassword },
     });
 
-    const refreshTokenKey = `refreshToken:${auth.id}`;
-    await this.redisService.del(refreshTokenKey);
+    await this.refreshTokenService.revokeAllForAuth(auth.id);
 
     await this.mailService.passwordUpdateSuccessfully(auth.email);
   }
@@ -682,8 +667,7 @@ export class AuthService {
       data: { password: hashedPassword },
     });
 
-    const refreshTokenKey = `refreshToken:${authId}`;
-    await this.redisService.del(refreshTokenKey);
+    await this.refreshTokenService.revokeAllForAuth(authId);
 
     await this.mailService.passwordUpdateSuccessfully(auth.email);
   }

@@ -45,6 +45,11 @@ export { Prisma }
  */
 export type Auth = Prisma.AuthModel
 /**
+ * Model RefreshToken
+ * 
+ */
+export type RefreshToken = Prisma.RefreshTokenModel
+/**
  * Model User
  * 
  */

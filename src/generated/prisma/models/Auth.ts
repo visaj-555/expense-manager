@@ -31,8 +31,6 @@ export type AuthMinAggregateOutputType = {
   role: $Enums.Role | null
   isActive: boolean | null
   isEmailVerified: boolean | null
-  refreshToken: string | null
-  refreshTokenExp: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -44,8 +42,6 @@ export type AuthMaxAggregateOutputType = {
   role: $Enums.Role | null
   isActive: boolean | null
   isEmailVerified: boolean | null
-  refreshToken: string | null
-  refreshTokenExp: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -57,8 +53,6 @@ export type AuthCountAggregateOutputType = {
   role: number
   isActive: number
   isEmailVerified: number
-  refreshToken: number
-  refreshTokenExp: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -72,8 +66,6 @@ export type AuthMinAggregateInputType = {
   role?: true
   isActive?: true
   isEmailVerified?: true
-  refreshToken?: true
-  refreshTokenExp?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -85,8 +77,6 @@ export type AuthMaxAggregateInputType = {
   role?: true
   isActive?: true
   isEmailVerified?: true
-  refreshToken?: true
-  refreshTokenExp?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -98,8 +88,6 @@ export type AuthCountAggregateInputType = {
   role?: true
   isActive?: true
   isEmailVerified?: true
-  refreshToken?: true
-  refreshTokenExp?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -184,8 +172,6 @@ export type AuthGroupByOutputType = {
   role: $Enums.Role
   isActive: boolean
   isEmailVerified: boolean
-  refreshToken: string | null
-  refreshTokenExp: Date | null
   createdAt: Date
   updatedAt: Date
   _count: AuthCountAggregateOutputType | null
@@ -218,11 +204,10 @@ export type AuthWhereInput = {
   role?: Prisma.EnumRoleFilter<"Auth"> | $Enums.Role
   isActive?: Prisma.BoolFilter<"Auth"> | boolean
   isEmailVerified?: Prisma.BoolFilter<"Auth"> | boolean
-  refreshToken?: Prisma.StringNullableFilter<"Auth"> | string | null
-  refreshTokenExp?: Prisma.DateTimeNullableFilter<"Auth"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Auth"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Auth"> | Date | string
   otps?: Prisma.OtpListRelationFilter
+  refreshTokens?: Prisma.RefreshTokenListRelationFilter
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
@@ -233,11 +218,10 @@ export type AuthOrderByWithRelationInput = {
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
-  refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
-  refreshTokenExp?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   otps?: Prisma.OtpOrderByRelationAggregateInput
+  refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
   user?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -251,11 +235,10 @@ export type AuthWhereUniqueInput = Prisma.AtLeast<{
   role?: Prisma.EnumRoleFilter<"Auth"> | $Enums.Role
   isActive?: Prisma.BoolFilter<"Auth"> | boolean
   isEmailVerified?: Prisma.BoolFilter<"Auth"> | boolean
-  refreshToken?: Prisma.StringNullableFilter<"Auth"> | string | null
-  refreshTokenExp?: Prisma.DateTimeNullableFilter<"Auth"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Auth"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Auth"> | Date | string
   otps?: Prisma.OtpListRelationFilter
+  refreshTokens?: Prisma.RefreshTokenListRelationFilter
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id" | "email">
 
@@ -266,8 +249,6 @@ export type AuthOrderByWithAggregationInput = {
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
-  refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
-  refreshTokenExp?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.AuthCountOrderByAggregateInput
@@ -285,8 +266,6 @@ export type AuthScalarWhereWithAggregatesInput = {
   role?: Prisma.EnumRoleWithAggregatesFilter<"Auth"> | $Enums.Role
   isActive?: Prisma.BoolWithAggregatesFilter<"Auth"> | boolean
   isEmailVerified?: Prisma.BoolWithAggregatesFilter<"Auth"> | boolean
-  refreshToken?: Prisma.StringNullableWithAggregatesFilter<"Auth"> | string | null
-  refreshTokenExp?: Prisma.DateTimeNullableWithAggregatesFilter<"Auth"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Auth"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Auth"> | Date | string
 }
@@ -298,11 +277,10 @@ export type AuthCreateInput = {
   role?: $Enums.Role
   isActive?: boolean
   isEmailVerified?: boolean
-  refreshToken?: string | null
-  refreshTokenExp?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   otps?: Prisma.OtpCreateNestedManyWithoutAuthInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutAuthInput
   user?: Prisma.UserCreateNestedOneWithoutAuthInput
 }
 
@@ -313,11 +291,10 @@ export type AuthUncheckedCreateInput = {
   role?: $Enums.Role
   isActive?: boolean
   isEmailVerified?: boolean
-  refreshToken?: string | null
-  refreshTokenExp?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   otps?: Prisma.OtpUncheckedCreateNestedManyWithoutAuthInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutAuthInput
   user?: Prisma.UserUncheckedCreateNestedOneWithoutAuthInput
 }
 
@@ -328,11 +305,10 @@ export type AuthUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  refreshTokenExp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   otps?: Prisma.OtpUpdateManyWithoutAuthNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutAuthNestedInput
   user?: Prisma.UserUpdateOneWithoutAuthNestedInput
 }
 
@@ -343,11 +319,10 @@ export type AuthUncheckedUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  refreshTokenExp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   otps?: Prisma.OtpUncheckedUpdateManyWithoutAuthNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutAuthNestedInput
   user?: Prisma.UserUncheckedUpdateOneWithoutAuthNestedInput
 }
 
@@ -358,8 +333,6 @@ export type AuthCreateManyInput = {
   role?: $Enums.Role
   isActive?: boolean
   isEmailVerified?: boolean
-  refreshToken?: string | null
-  refreshTokenExp?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -371,8 +344,6 @@ export type AuthUpdateManyMutationInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  refreshTokenExp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -384,8 +355,6 @@ export type AuthUncheckedUpdateManyInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  refreshTokenExp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -397,8 +366,6 @@ export type AuthCountOrderByAggregateInput = {
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
-  refreshToken?: Prisma.SortOrder
-  refreshTokenExp?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -410,8 +377,6 @@ export type AuthMaxOrderByAggregateInput = {
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
-  refreshToken?: Prisma.SortOrder
-  refreshTokenExp?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -423,8 +388,6 @@ export type AuthMinOrderByAggregateInput = {
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
-  refreshToken?: Prisma.SortOrder
-  refreshTokenExp?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -455,12 +418,22 @@ export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type AuthCreateNestedOneWithoutRefreshTokensInput = {
+  create?: Prisma.XOR<Prisma.AuthCreateWithoutRefreshTokensInput, Prisma.AuthUncheckedCreateWithoutRefreshTokensInput>
+  connectOrCreate?: Prisma.AuthCreateOrConnectWithoutRefreshTokensInput
+  connect?: Prisma.AuthWhereUniqueInput
+}
+
+export type AuthUpdateOneRequiredWithoutRefreshTokensNestedInput = {
+  create?: Prisma.XOR<Prisma.AuthCreateWithoutRefreshTokensInput, Prisma.AuthUncheckedCreateWithoutRefreshTokensInput>
+  connectOrCreate?: Prisma.AuthCreateOrConnectWithoutRefreshTokensInput
+  upsert?: Prisma.AuthUpsertWithoutRefreshTokensInput
+  connect?: Prisma.AuthWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AuthUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.AuthUpdateWithoutRefreshTokensInput>, Prisma.AuthUncheckedUpdateWithoutRefreshTokensInput>
 }
 
 export type AuthCreateNestedOneWithoutUserInput = {
@@ -493,6 +466,74 @@ export type AuthUpdateOneWithoutOtpsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AuthUpdateToOneWithWhereWithoutOtpsInput, Prisma.AuthUpdateWithoutOtpsInput>, Prisma.AuthUncheckedUpdateWithoutOtpsInput>
 }
 
+export type AuthCreateWithoutRefreshTokensInput = {
+  id?: string
+  email: string
+  password?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  isEmailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  otps?: Prisma.OtpCreateNestedManyWithoutAuthInput
+  user?: Prisma.UserCreateNestedOneWithoutAuthInput
+}
+
+export type AuthUncheckedCreateWithoutRefreshTokensInput = {
+  id?: string
+  email: string
+  password?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  isEmailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  otps?: Prisma.OtpUncheckedCreateNestedManyWithoutAuthInput
+  user?: Prisma.UserUncheckedCreateNestedOneWithoutAuthInput
+}
+
+export type AuthCreateOrConnectWithoutRefreshTokensInput = {
+  where: Prisma.AuthWhereUniqueInput
+  create: Prisma.XOR<Prisma.AuthCreateWithoutRefreshTokensInput, Prisma.AuthUncheckedCreateWithoutRefreshTokensInput>
+}
+
+export type AuthUpsertWithoutRefreshTokensInput = {
+  update: Prisma.XOR<Prisma.AuthUpdateWithoutRefreshTokensInput, Prisma.AuthUncheckedUpdateWithoutRefreshTokensInput>
+  create: Prisma.XOR<Prisma.AuthCreateWithoutRefreshTokensInput, Prisma.AuthUncheckedCreateWithoutRefreshTokensInput>
+  where?: Prisma.AuthWhereInput
+}
+
+export type AuthUpdateToOneWithWhereWithoutRefreshTokensInput = {
+  where?: Prisma.AuthWhereInput
+  data: Prisma.XOR<Prisma.AuthUpdateWithoutRefreshTokensInput, Prisma.AuthUncheckedUpdateWithoutRefreshTokensInput>
+}
+
+export type AuthUpdateWithoutRefreshTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  otps?: Prisma.OtpUpdateManyWithoutAuthNestedInput
+  user?: Prisma.UserUpdateOneWithoutAuthNestedInput
+}
+
+export type AuthUncheckedUpdateWithoutRefreshTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  otps?: Prisma.OtpUncheckedUpdateManyWithoutAuthNestedInput
+  user?: Prisma.UserUncheckedUpdateOneWithoutAuthNestedInput
+}
+
 export type AuthCreateWithoutUserInput = {
   id?: string
   email: string
@@ -500,11 +541,10 @@ export type AuthCreateWithoutUserInput = {
   role?: $Enums.Role
   isActive?: boolean
   isEmailVerified?: boolean
-  refreshToken?: string | null
-  refreshTokenExp?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   otps?: Prisma.OtpCreateNestedManyWithoutAuthInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutAuthInput
 }
 
 export type AuthUncheckedCreateWithoutUserInput = {
@@ -514,11 +554,10 @@ export type AuthUncheckedCreateWithoutUserInput = {
   role?: $Enums.Role
   isActive?: boolean
   isEmailVerified?: boolean
-  refreshToken?: string | null
-  refreshTokenExp?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   otps?: Prisma.OtpUncheckedCreateNestedManyWithoutAuthInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutAuthInput
 }
 
 export type AuthCreateOrConnectWithoutUserInput = {
@@ -544,11 +583,10 @@ export type AuthUpdateWithoutUserInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  refreshTokenExp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   otps?: Prisma.OtpUpdateManyWithoutAuthNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutAuthNestedInput
 }
 
 export type AuthUncheckedUpdateWithoutUserInput = {
@@ -558,11 +596,10 @@ export type AuthUncheckedUpdateWithoutUserInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  refreshTokenExp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   otps?: Prisma.OtpUncheckedUpdateManyWithoutAuthNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutAuthNestedInput
 }
 
 export type AuthCreateWithoutOtpsInput = {
@@ -572,10 +609,9 @@ export type AuthCreateWithoutOtpsInput = {
   role?: $Enums.Role
   isActive?: boolean
   isEmailVerified?: boolean
-  refreshToken?: string | null
-  refreshTokenExp?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutAuthInput
   user?: Prisma.UserCreateNestedOneWithoutAuthInput
 }
 
@@ -586,10 +622,9 @@ export type AuthUncheckedCreateWithoutOtpsInput = {
   role?: $Enums.Role
   isActive?: boolean
   isEmailVerified?: boolean
-  refreshToken?: string | null
-  refreshTokenExp?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutAuthInput
   user?: Prisma.UserUncheckedCreateNestedOneWithoutAuthInput
 }
 
@@ -616,10 +651,9 @@ export type AuthUpdateWithoutOtpsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  refreshTokenExp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutAuthNestedInput
   user?: Prisma.UserUpdateOneWithoutAuthNestedInput
 }
 
@@ -630,10 +664,9 @@ export type AuthUncheckedUpdateWithoutOtpsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  refreshTokenExp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutAuthNestedInput
   user?: Prisma.UserUncheckedUpdateOneWithoutAuthNestedInput
 }
 
@@ -644,10 +677,12 @@ export type AuthUncheckedUpdateWithoutOtpsInput = {
 
 export type AuthCountOutputType = {
   otps: number
+  refreshTokens: number
 }
 
 export type AuthCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   otps?: boolean | AuthCountOutputTypeCountOtpsArgs
+  refreshTokens?: boolean | AuthCountOutputTypeCountRefreshTokensArgs
 }
 
 /**
@@ -667,6 +702,13 @@ export type AuthCountOutputTypeCountOtpsArgs<ExtArgs extends runtime.Types.Exten
   where?: Prisma.OtpWhereInput
 }
 
+/**
+ * AuthCountOutputType without action
+ */
+export type AuthCountOutputTypeCountRefreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RefreshTokenWhereInput
+}
+
 
 export type AuthSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -675,11 +717,10 @@ export type AuthSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   role?: boolean
   isActive?: boolean
   isEmailVerified?: boolean
-  refreshToken?: boolean
-  refreshTokenExp?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   otps?: boolean | Prisma.Auth$otpsArgs<ExtArgs>
+  refreshTokens?: boolean | Prisma.Auth$refreshTokensArgs<ExtArgs>
   user?: boolean | Prisma.Auth$userArgs<ExtArgs>
   _count?: boolean | Prisma.AuthCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["auth"]>
@@ -691,8 +732,6 @@ export type AuthSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   role?: boolean
   isActive?: boolean
   isEmailVerified?: boolean
-  refreshToken?: boolean
-  refreshTokenExp?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["auth"]>
@@ -704,8 +743,6 @@ export type AuthSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   role?: boolean
   isActive?: boolean
   isEmailVerified?: boolean
-  refreshToken?: boolean
-  refreshTokenExp?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["auth"]>
@@ -717,15 +754,14 @@ export type AuthSelectScalar = {
   role?: boolean
   isActive?: boolean
   isEmailVerified?: boolean
-  refreshToken?: boolean
-  refreshTokenExp?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type AuthOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "role" | "isActive" | "isEmailVerified" | "refreshToken" | "refreshTokenExp" | "createdAt" | "updatedAt", ExtArgs["result"]["auth"]>
+export type AuthOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "role" | "isActive" | "isEmailVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["auth"]>
 export type AuthInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   otps?: boolean | Prisma.Auth$otpsArgs<ExtArgs>
+  refreshTokens?: boolean | Prisma.Auth$refreshTokensArgs<ExtArgs>
   user?: boolean | Prisma.Auth$userArgs<ExtArgs>
   _count?: boolean | Prisma.AuthCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -736,6 +772,7 @@ export type $AuthPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "Auth"
   objects: {
     otps: Prisma.$OtpPayload<ExtArgs>[]
+    refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
     user: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -745,8 +782,6 @@ export type $AuthPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     role: $Enums.Role
     isActive: boolean
     isEmailVerified: boolean
-    refreshToken: string | null
-    refreshTokenExp: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["auth"]>
@@ -1144,6 +1179,7 @@ readonly fields: AuthFieldRefs;
 export interface Prisma__AuthClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   otps<T extends Prisma.Auth$otpsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Auth$otpsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OtpPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  refreshTokens<T extends Prisma.Auth$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Auth$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   user<T extends Prisma.Auth$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Auth$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1180,8 +1216,6 @@ export interface AuthFieldRefs {
   readonly role: Prisma.FieldRef<"Auth", 'Role'>
   readonly isActive: Prisma.FieldRef<"Auth", 'Boolean'>
   readonly isEmailVerified: Prisma.FieldRef<"Auth", 'Boolean'>
-  readonly refreshToken: Prisma.FieldRef<"Auth", 'String'>
-  readonly refreshTokenExp: Prisma.FieldRef<"Auth", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Auth", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Auth", 'DateTime'>
 }
@@ -1598,6 +1632,30 @@ export type Auth$otpsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   take?: number
   skip?: number
   distinct?: Prisma.OtpScalarFieldEnum | Prisma.OtpScalarFieldEnum[]
+}
+
+/**
+ * Auth.refreshTokens
+ */
+export type Auth$refreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RefreshToken
+   */
+  select?: Prisma.RefreshTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RefreshToken
+   */
+  omit?: Prisma.RefreshTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RefreshTokenInclude<ExtArgs> | null
+  where?: Prisma.RefreshTokenWhereInput
+  orderBy?: Prisma.RefreshTokenOrderByWithRelationInput | Prisma.RefreshTokenOrderByWithRelationInput[]
+  cursor?: Prisma.RefreshTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RefreshTokenScalarFieldEnum | Prisma.RefreshTokenScalarFieldEnum[]
 }
 
 /**

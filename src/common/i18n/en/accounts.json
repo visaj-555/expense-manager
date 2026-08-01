@@ -1,33 +1,15 @@
 {
-  "validation": {
-    "name_required": "Account name is required",
-    "name_string": "Account name must be a string",
-    "type_required": "Account type is required",
-    "invalid_type": "Invalid account type selected",
-    "opening_balance_required": "Opening balance is required",
-    "opening_balance_number": "Opening balance must be a valid number",
-    "opening_balance_min": "opening balance cannot be negative",
-    "is_archived_boolean": "Archived status must be a boolean value",
-    "search_string": "Search term must be a string",
-    "search_max_length": "Search term must not exceed 100 characters",
-    "invalid_order_by": "Invalid sort field selected",
-    "invalid_order": "Invalid sort order selected"
-  },
-
   "errors": {
     "notFound": "Account not found",
-    "alreadyArchived": "Account is already archived",
-    "alreadyActive": "Account is already active",
-    "duplicateName": "An account with this name already exists",
-    "deleteBlocked": "Account cannot be deleted because transactions exist"
+    "forbidden": "You do not have access to this account",
+    "hasTransactions": "Cannot delete an account that has transactions. Archive it instead."
   },
-
-  "success": {
-    "created": "Account created successfully",
-    "fetched": "Accounts fetched successfully",
-    "updated": "Account updated successfully",
-    "archived": "Account archived successfully",
-    "restored": "Account restored successfully",
-    "deleted": "Account deleted successfully"
+  "validation": {
+    "name_string": "Account name must be a string",
+    "name_required": "Account name is required",
+    "invalid_type": "Account type must be Bank, Savings, or Wallet",
+    "current_balance_required": "Current balance is required",
+    "current_balance_number": "Current balance must be a valid number",
+    "current_balance_min": "Current balance cannot be negative"
   }
 }

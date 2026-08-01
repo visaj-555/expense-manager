@@ -1,9 +1,6 @@
 import { Auth } from "src/generated/prisma/client";
 
-export type AuthPublic = Omit<
-  Auth,
-  'password' | 'refreshToken' | 'refreshTokenExp'
->;
+export type AuthPublic = Omit<Auth, 'password'>;
 
 export interface JwtPayload {
   authId: string;

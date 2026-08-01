@@ -19,6 +19,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "seed:categories": "tsx src/common/seeders/seed-categories.ts",
+    "seed:transactions": "tsx src/common/seeders/seed-transactions.ts",
     "prepare": "husky",
     "prepush": "npm run lint"
   },
@@ -95,3 +96,7 @@
     "testEnvironment": "node"
   }
 }
+
+
+
+

@@ -20,6 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "seed:categories": "tsx src/common/seeders/seed-categories.ts",
     "seed:transactions": "tsx src/common/seeders/seed-transactions.ts",
+    "seed:office-travel-wallet": "tsx src/common/seeders/seed-office-travel-wallet.ts",
     "prepare": "husky",
     "prepush": "npm run lint"
   },

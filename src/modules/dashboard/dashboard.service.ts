@@ -38,6 +38,7 @@ export class DashboardService {
       currentMonthExpenseAgg,
       lastMonthExpenseAgg,
       savingsTransfersAgg,
+      sipInvestmentsAgg,
       topCategoriesMonthAgg,
       topCategoriesAllTimeAgg,
       recentTransactionsRaw,
@@ -88,6 +89,14 @@ export class DashboardService {
           userId,
           transferDate: { gte: startOfCurrentMonth, lte: endOfCurrentMonth },
           toAccount: { type: 'SAVINGS' },
+        },
+        _sum: { amount: true },
+      }),
+
+      this.prisma.transaction.aggregate({
+        where: {
+          userId,
+          category: { name: { equals: 'SIP', mode: 'insensitive' } },
         },
         _sum: { amount: true },
       }),
@@ -163,8 +172,8 @@ export class DashboardService {
 
       if (acc.type === 'BANK') {
         currentBalance += balance;
-      } else if (acc.type === 'SAVINGS' || acc.type === 'WALLET') {
-        // Savings (and legacy wallet) feed "Current Wallet Balance"
+      } else if (acc.type === 'WALLET') {
+        // WALLET = cash in hand
         currentWalletBalance += balance;
       }
 
@@ -175,7 +184,7 @@ export class DashboardService {
     const monthlyExpense = Number(currentMonthExpenseAgg._sum.amount || 0);
     const lastMonthExpense = Number(lastMonthExpenseAgg._sum.amount || 0);
     const monthlySavings = Number(savingsTransfersAgg._sum.amount || 0);
-    const monthlyInvestments = 0;
+    const monthlyInvestments = Number(sipInvestmentsAgg._sum.amount || 0);
     const netCashFlow = monthlyIncome - monthlyExpense;
     const savingsRate =
       monthlyIncome > 0 ? (netCashFlow / monthlyIncome) * 100 : 0;

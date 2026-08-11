@@ -314,6 +314,14 @@ const RAW_TABLE = `
 | Office + Rain Travel            |    ₹405.00 | Office Travel    | 7/31/26  |
 | Vadodara-Food-Rapido            |    ₹455.00 | Social Expense   | 7/26/26  |
 | Junk                            |    ₹815.00 | Food             | 7/30/26  |
+| Milk + Anaj                     |    ₹290.00 | Home             | 8/8/26   |
+| Sandwich Preparation            |    ₹329.00 | Food             | 8/9/26   |
+| Laptop Adapter                  |    ₹654.00 | Gadgets          | 8/11/26  |
+| Dhd Travel                      |    ₹430.00 | Dahod            | 8/10/26  |
+| PG Rent                         |  ₹8,000.00 | PG               | 8/11/26  |
+| Social August                   |  ₹1,342.00 | Social Expense   | 8/31/26  |
+| Junk Food August                |    ₹295.00 | Food             | 8/31/26  |
+| Office Travel                   |     ₹90.00 | Office Travel    | 8/7/26   |
 `;
 
 // ---------------------------------------------------------------------------
@@ -385,27 +393,118 @@ function resolvePaymentMethod(categoryName: string): 'CASH' | 'UPI' {
   return categoryName === 'Office Travel' ? 'CASH' : 'UPI';
 }
 
+type SeedTx = {
+  userId: string;
+  accountId: string;
+  categoryId: string;
+  type: 'INCOME' | 'EXPENSE';
+  amount: number;
+  title: string;
+  transactionDate: Date;
+  paymentMethod: 'CASH' | 'UPI' | 'NET_BANKING';
+};
+
+/**
+ * Salary by calendar month (1–12).
+ * Jan–Apr 2025: 10k | May–Jul 2025: 12k | Aug 2025–Feb 2026: 20k
+ * Mar–Apr 2026: 24k | May 2026 onward: 30k
+ */
+function salaryForMonth(year: number, month: number): number | null {
+  if (year < 2025) return null;
+  if (year === 2025 && month >= 1 && month <= 4) return 10_000;
+  if (year === 2025 && month >= 5 && month <= 7) return 12_000;
+  if ((year === 2025 && month >= 8) || (year === 2026 && month <= 2)) return 20_000;
+  if (year === 2026 && month >= 3 && month <= 4) return 24_000;
+  if (year > 2026 || (year === 2026 && month >= 5)) return 30_000;
+  return null;
+}
+
+function buildSalaryRows(
+  salaryCategoryId: string,
+  through: Date = new Date(),
+): SeedTx[] {
+  const rows: SeedTx[] = [];
+  const startYear = 2025;
+  const startMonth = 1;
+  const endYear = through.getFullYear();
+  const endMonth = through.getMonth() + 1;
+
+  for (let year = startYear; year <= endYear; year += 1) {
+    const monthFrom = year === startYear ? startMonth : 1;
+    const monthTo = year === endYear ? endMonth : 12;
+
+    for (let month = monthFrom; month <= monthTo; month += 1) {
+      const amount = salaryForMonth(year, month);
+      if (amount == null) continue;
+
+      rows.push({
+        userId: USER_ID,
+        accountId: MAIN_ACCOUNT_ID,
+        categoryId: salaryCategoryId,
+        type: 'INCOME',
+        amount,
+        title: 'Salary',
+        transactionDate: new Date(Date.UTC(year, month - 1, 1)),
+        paymentMethod: 'NET_BANKING',
+      });
+    }
+  }
+
+  return rows;
+}
+
+async function computeAccountBalance(accountId: string) {
+  const account = await prisma.account.findUnique({
+    where: { id: accountId },
+    select: {
+      name: true,
+      openingBalance: true,
+      transactions: {
+        where: { type: { in: ['INCOME', 'EXPENSE'] } },
+        select: { type: true, amount: true },
+      },
+    },
+  });
+
+  if (!account) return null;
+
+  const delta = account.transactions.reduce((sum, tx) => {
+    const amt = Number(tx.amount);
+    return tx.type === 'INCOME' ? sum + amt : sum - amt;
+  }, 0);
+
+  return {
+    name: account.name,
+    openingBalance: Number(account.openingBalance),
+    currentBalance: Number(account.openingBalance) + delta,
+  };
+}
+
 // ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 async function main() {
   const parsedRows = parseRawTable(RAW_TABLE);
-  console.log(`Parsed ${parsedRows.length} rows from the raw table.\n`);
+  console.log(`Parsed ${parsedRows.length} expense rows from the raw table.\n`);
 
-  let created = 0;
+  const salaryCategory = await prisma.category.findFirst({
+    where: {
+      userId: USER_ID,
+      name: { equals: 'Salary', mode: 'insensitive' },
+      type: 'INCOME',
+    },
+    select: { id: true },
+  });
+
+  if (!salaryCategory) {
+    throw new Error(
+      'Salary INCOME category not found. Run `npm run seed:categories` first.',
+    );
+  }
+
   let skippedUnknownCategory = 0;
   const unknownCategories = new Set<string>();
-
-  const data: {
-    userId: string;
-    accountId: string;
-    categoryId: string;
-    type: 'EXPENSE';
-    amount: number;
-    title: string;
-    transactionDate: Date;
-    paymentMethod: 'CASH' | 'UPI';
-  }[] = [];
+  const expenseData: SeedTx[] = [];
 
   for (const row of parsedRows) {
     const categoryId = CATEGORY_ID_MAP[row.categoryName];
@@ -416,7 +515,7 @@ async function main() {
       continue;
     }
 
-    data.push({
+    expenseData.push({
       userId: USER_ID,
       accountId: resolveAccountId(row.categoryName),
       categoryId,
@@ -434,13 +533,50 @@ async function main() {
     );
   }
 
-  const result = await prisma.transaction.createMany({
-    data,
+  const salaryData = buildSalaryRows(salaryCategory.id);
+  const data = [...expenseData, ...salaryData];
+
+  console.log('Deleting existing transactions for this user...');
+  const deleted = await prisma.transaction.deleteMany({
+    where: { userId: USER_ID },
+  });
+  console.log(`  ✓ Deleted ${deleted.count} old transaction(s).\n`);
+
+  // Real bank balance today (user-confirmed). Opening is back-calculated
+  // after insert so computed currentBalance matches this number.
+  const TARGET_BANK_BALANCE = 740;
+
+  await prisma.account.updateMany({
+    where: { id: { in: [MAIN_ACCOUNT_ID, OFFICE_TRAVEL_ACCOUNT_ID] } },
+    data: { openingBalance: 0 },
   });
 
-  created = result.count;
+  const result = await prisma.transaction.createMany({ data });
 
-  console.log(`\n✓ Inserted ${created} transactions for user ${USER_ID}.`);
+  const bankAfterSeed = await computeAccountBalance(MAIN_ACCOUNT_ID);
+  if (bankAfterSeed) {
+    const impliedOpening = TARGET_BANK_BALANCE - (bankAfterSeed.currentBalance - bankAfterSeed.openingBalance);
+    await prisma.account.update({
+      where: { id: MAIN_ACCOUNT_ID },
+      data: { openingBalance: impliedOpening },
+    });
+  }
+
+  const incomeTotal = salaryData.reduce((sum, row) => sum + row.amount, 0);
+  const expenseTotal = expenseData.reduce((sum, row) => sum + row.amount, 0);
+
+  console.log(`✓ Inserted ${result.count} transactions for user ${USER_ID}.`);
+  console.log(`  - Expenses: ${expenseData.length}  (₹${expenseTotal.toLocaleString('en-IN')})`);
+  console.log(`  - Salary:   ${salaryData.length}  (₹${incomeTotal.toLocaleString('en-IN')})`);
+
+  for (const accountId of [MAIN_ACCOUNT_ID, OFFICE_TRAVEL_ACCOUNT_ID]) {
+    const summary = await computeAccountBalance(accountId);
+    if (summary) {
+      console.log(
+        `  - ${summary.name}: opening ₹${summary.openingBalance.toLocaleString('en-IN')} → current ₹${summary.currentBalance.toLocaleString('en-IN')}`,
+      );
+    }
+  }
 }
 
 main()

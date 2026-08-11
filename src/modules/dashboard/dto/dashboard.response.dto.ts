@@ -4,9 +4,7 @@ export class DashboardOverviewDto {
   @ApiProperty({ description: 'Sum of BANK account balances' })
   currentBalance: number;
 
-  @ApiProperty({
-    description: 'Sum of SAVINGS (and legacy WALLET) account balances',
-  })
+  @ApiProperty({ description: 'Sum of WALLET (cash) account balances' })
   currentWalletBalance: number;
 
   @ApiProperty()
@@ -18,7 +16,7 @@ export class DashboardOverviewDto {
   @ApiProperty()
   monthlySavings: number;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Total amount in SIP category' })
   monthlyInvestments: number;
 
   @ApiProperty()

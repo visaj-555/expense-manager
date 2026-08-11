@@ -9,6 +9,11 @@ import { calculatePaginationMeta, getPaginationParams } from 'src/common/common.
 import { PrismaService } from 'src/common/database/prisma.service';
 import { Prisma } from 'src/generated/prisma/client';
 import { CreateTransactionDto, TransactionQueryDto, UpdateTransactionDto } from './dto/transaction.payload.dto';
+import {
+  getAccountCurrentBalance,
+  isBackdated,
+  pinAccountCurrentBalance,
+} from 'src/common/helpers/account-ledger';
 
 
 // ─── Selects ──────────────────────────────────────────────────────────────────
@@ -64,6 +69,12 @@ export class TransactionsService {
       await this.assertCategoryOwnership(userId, dto.categoryId);
     }
 
+    const transactionDate = new Date(dto.transactionDate);
+    const preserveToday =
+      isBackdated(transactionDate)
+        ? await getAccountCurrentBalance(this.prisma, dto.accountId)
+        : null;
+
     const raw = await this.prisma.transaction.create({
       data: {
         userId,
@@ -73,12 +84,16 @@ export class TransactionsService {
         amount: dto.amount,
         title: dto.title,
         notes: dto.notes ?? null,
-        transactionDate: new Date(dto.transactionDate),
+        transactionDate,
         paymentMethod: dto.paymentMethod ?? null,
         location: dto.location ?? null,
       },
       select: TRANSACTION_SELECT,
     });
+
+    if (preserveToday != null) {
+      await pinAccountCurrentBalance(this.prisma, dto.accountId, preserveToday);
+    }
 
     return formatTransaction(raw);
   }
@@ -193,6 +208,24 @@ export class TransactionsService {
       await this.assertCategoryOwnership(userId, dto.categoryId);
     }
 
+    const existing = await this.prisma.transaction.findUnique({
+      where: { id },
+      select: { accountId: true, transactionDate: true },
+    });
+    if (!existing) throw new NotFoundException('transactions.errors.notFound');
+
+    const nextDate = dto.transactionDate
+      ? new Date(dto.transactionDate)
+      : existing.transactionDate;
+    const affectedIds = new Set<string>([existing.accountId]);
+    if (dto.accountId) affectedIds.add(dto.accountId);
+
+    const shouldPreserve =
+      isBackdated(existing.transactionDate) || isBackdated(nextDate);
+
+    const snapshots = shouldPreserve
+      ? await this.snapshotCurrents([...affectedIds])
+      : null;
 
     const { ...rest } = dto;
 
@@ -207,6 +240,10 @@ export class TransactionsService {
       select: TRANSACTION_SELECT,
     });
 
+    if (snapshots) {
+      await this.restoreCurrents(snapshots);
+    }
+
     return formatTransaction(raw);
   }
 
@@ -215,15 +252,49 @@ export class TransactionsService {
   async remove(userId: string, id: string) {
     await this.assertOwnership(userId, id);
 
+    const existing = await this.prisma.transaction.findUnique({
+      where: { id },
+      select: { accountId: true, transactionDate: true },
+    });
+    if (!existing) throw new NotFoundException('transactions.errors.notFound');
+
+    const preserveToday = isBackdated(existing.transactionDate)
+      ? await getAccountCurrentBalance(this.prisma, existing.accountId)
+      : null;
+
     const raw = await this.prisma.transaction.delete({
       where: { id },
       select: TRANSACTION_SELECT,
     });
 
+    if (preserveToday != null) {
+      await pinAccountCurrentBalance(
+        this.prisma,
+        existing.accountId,
+        preserveToday,
+      );
+    }
+
     return formatTransaction(raw);
   }
 
   // ─── Private helpers ──────────────────────────────────────────────────────
+
+  private async snapshotCurrents(accountIds: string[]) {
+    const entries = await Promise.all(
+      accountIds.map(async (accountId) => {
+        const current = await getAccountCurrentBalance(this.prisma, accountId);
+        return [accountId, current] as const;
+      }),
+    );
+    return new Map(entries.filter(([, current]) => current != null) as [string, number][]);
+  }
+
+  private async restoreCurrents(snapshots: Map<string, number>) {
+    for (const [accountId, current] of snapshots) {
+      await pinAccountCurrentBalance(this.prisma, accountId, current);
+    }
+  }
 
   private async assertOwnership(userId: string, id: string) {
     const tx = await this.prisma.transaction.findUnique({

@@ -7,7 +7,7 @@
   "validation": {
     "name_string": "Account name must be a string",
     "name_required": "Account name is required",
-    "invalid_type": "Account type must be Bank, Savings, or Wallet",
+    "invalid_type": "Account type must be Bank, Savings, or Cash",
     "current_balance_required": "Current balance is required",
     "current_balance_number": "Current balance must be a valid number",
     "current_balance_min": "Current balance cannot be negative"

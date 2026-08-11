@@ -1,0 +1,376 @@
+Create one account with email : uppanchal777@gmail.com password : Test@123 and in that acc do all the below things :
+
+Category names :
+Showroom
+Travel
+Bank Hafto
+Vegetable & Fruit
+Groceries
+God
+Milk
+Gas
+Social Expense
+Light Bill
+Maid
+Visaj
+Snacks & Farsan
+Medical
+Petrol
+Naavi
+Clothes
+Savings
+Gadgets
+Recharge
+Repairing
+Mediclame
+Extra
+
+Tranactions : 
+
+Date,Name,Amount,Category
+January 2, 2026,Singdana,₹140.00,Groceries
+January 2, 2026,Veggies,₹160.00,Vegetable & Fruit
+January 1, 2026,Jincy Gift,₹1,500.00,Social Expense
+January 2, 2026,Mandir Nimit,₹10.00,God
+January 3, 2026,Milk and Dahi,₹156.00,Milk
+January 3, 2026,Farsan,₹150.00,Snacks & Farsan
+January 3, 2026,Jaggery,₹110.00,Groceries
+January 4, 2026,Veggies,₹85.00,Vegetable & Fruit
+January 5, 2026,Maid,₹100.00,Maid
+January 5, 2026,Kid,₹100.00,Social Expense
+January 6, 2026,Milk,₹136.00,Milk
+January 6, 2026,Veggies,₹45.00,Vegetable & Fruit
+January 7, 2026,Bojho Kami,₹4,000.00,Showroom
+January 7, 2026,Bill,₹1,733.00,Light Bill
+January 8, 2026,Rikshaw,₹60.00,Travel
+January 9, 2026,Milk and Dahi,₹146.00,Milk
+January 8, 2026,Rikshaw,₹60.00,Travel
+January 9, 2026,Edu Loan ,₹4,000.00,Bank Hafto
+January 10, 2026,,₹150.00,Vegetable & Fruit
+January 10, 2026,Shatabdi,₹1,000.00,God
+January 10, 2026,,₹525.00,Snacks & Farsan
+January 10, 2026,,₹300.00,Social Expense
+January 11, 2026,,₹200.00,Social Expense
+January 11, 2026,Jiru,₹288.00,Groceries
+January 12, 2026,Grocery,₹240.00,Groceries
+January 12, 2026,,₹40.00,Vegetable & Fruit
+January 12, 2026,,₹100.00,Maid
+January 13, 2026,,₹146.00,Milk
+January 13, 2026,,₹100.00,Maid
+January 14, 2026,Utttrayan,₹20.00,God
+January 14, 2026,Uttrayan,₹200.00,God
+January 14, 2026,,₹50.00,Social Expense
+January 14, 2026,,₹1,600.00,Social Expense
+January 16, 2026,,₹400.00,Social Expense
+January 16, 2026,Cash,₹110.00,Visaj
+January 16, 2026,,₹60.00,Vegetable & Fruit
+January 16, 2026,Makai Lot ,₹50.00,Groceries
+January 18, 2026,,₹136.00,Milk
+January 16, 2026,,₹160.00,Vegetable & Fruit
+January 18, 2026,,₹146.00,Milk
+January 18, 2026,Valod,₹120.00,Vegetable & Fruit
+January 19, 2026,,₹300.00,Snacks & Farsan
+January 20, 2026,,₹50.00,Vegetable & Fruit
+January 21, 2026,Dada,₹2,390.00,Medical
+January 21, 2026,,₹80.00,Snacks & Farsan
+January 16, 2026,,₹200.00,Maid
+January 21, 2026,,₹136.00,Milk
+January 22, 2026,,₹136.00,Milk
+January 22, 2026,,₹400.00,Snacks & Farsan
+January 22, 2026,,₹400.00,Social Expense
+January 22, 2026,Sadi  badlai ,₹250.00,Social Expense
+January 22, 2026,Kanyadan,₹100.00,Social Expense
+January 15, 2026,Veggies,₹40.00,Vegetable & Fruit
+January 15, 2026,,₹236.00,Gas
+January 23, 2026,,₹146.00,Milk
+January 23, 2026,,₹10.00,God
+January 24, 2026,,₹880.00,Gas
+January 24, 2026,Shivaksh & Durva,₹200.00,Social Expense
+January 22, 2026,Auto,₹50.00,Travel
+January 4, 2026,Mr Cake,₹110.00,Groceries
+January 26, 2026,Veg,₹40.00,Vegetable & Fruit
+January 26, 2026,Jaggery,₹110.00,Groceries
+January 14, 2026,Uttrayan,₹450.00,Snacks & Farsan
+January 14, 2026,Grocery,₹346.00,Groceries
+January 15, 2026,Brush , Ratlami , Medical,₹798.00,Social Expense
+January 24, 2026,Whole Sale,₹1,098.00,Groceries
+January 24, 2026,Puff,₹30.00,Groceries
+January 25, 2026,Nankhatai,₹840.00,Social Expense
+January 27, 2026,Auto (Urban),₹30.00,Travel
+January 27, 2026,Sugar,₹45.00,Groceries
+January 29, 2026,Milk,₹136.00,Milk
+January 30, 2026,Relative (V),₹50.00,Social Expense
+January 30, 2026,Gau mootra,₹40.00,Groceries
+January 30, 2026,Kela,₹40.00,Vegetable & Fruit
+January 31, 2026,Teras ,₹20.00,Travel
+
+February 1, 2026,,₹5.00,God
+February 1, 2026,,₹40.00,Travel
+February 1, 2026,,₹40.00,Vegetable & Fruit
+February 1, 2026,,₹200.00,Social Expense
+February 1, 2026,,₹120.00,Vegetable & Fruit
+February 1, 2026,Milk,₹136.00,Milk
+February 2, 2026,,₹30.00,Medical
+February 2, 2026,,₹150.00,Social Expense
+February 2, 2026,,₹5.00,Vegetable & Fruit
+February 3, 2026,Madi,₹100.00,Maid
+February 3, 2026,,₹880.00,Gas
+February 4, 2026,,₹4,000.00,Bank Hafto
+February 4, 2026,Maid,₹100.00,Maid
+February 4, 2026,,₹20.00,Travel
+February 4, 2026,,₹50.00,Vegetable & Fruit
+February 4, 2026,,₹200.00,Social Expense
+February 5, 2026,,₹136.00,Milk
+February 6, 2026,Dress,₹1,500.00,Clothes
+February 6, 2026,,₹200.00,Social Expense
+February 7, 2026,Veg and Fruit,₹255.00,Vegetable & Fruit
+February 8, 2026,,₹136.00,Milk
+February 8, 2026,,₹50.00,Groceries
+February 9, 2026,,₹100.00,Social Expense
+February 9, 2026,,₹100.00,Maid
+February 10, 2026,Urabn,₹1,000.00,Savings
+February 10, 2026,Thyroid,₹190.00,Medical
+February 11, 2026,,₹250.00,Social Expense
+February 11, 2026,,₹70.00,Travel
+February 12, 2026,,₹155.00,Milk
+February 12, 2026,,₹250.00,Social Expense
+February 13, 2026,,₹100.00,Maid
+February 13, 2026,,₹140.00,Vegetable & Fruit
+February 14, 2026,,₹100.00,Maid
+February 14, 2026,,₹102.00,Milk
+February 14, 2026,,₹10.00,God
+February 15, 2026,Dakor,₹320.00,Travel
+February 15, 2026,,₹2,100.00,Social Expense
+February 15, 2026,Dhrishiv,₹15,000.00,Social Expense
+February 17, 2026,,₹60.00,Travel
+February 17, 2026,,₹120.00,Groceries
+February 17, 2026,,₹30.00,Groceries
+February 17, 2026,,₹70.00,Vegetable & Fruit
+February 17, 2026,,₹20.00,God
+February 19, 2026,,₹200.00,Social Expense
+February 20, 2026,,₹136.00,Milk
+February 21, 2026,Dada Tiffin,₹70.00,Extra
+February 21, 2026,,₹100.00,Social Expense
+February 22, 2026,,₹90.00,Travel
+February 22, 2026,,₹500.00,Social Expense
+February 22, 2026,,₹345.00,Snacks & Farsan
+February 22, 2026,Petrol,₹100.00,Extra
+February 22, 2026,,₹300.00,Social Expense
+February 23, 2026,,₹102.00,Milk
+February 23, 2026,,₹200.00,Maid
+February 24, 2026,,₹30.00,Vegetable & Fruit
+February 26, 2026,,₹140.00,Vegetable & Fruit
+February 26, 2026,,₹20.00,Travel
+February 26, 2026,,₹1,070.00,Groceries
+February 26, 2026,,₹4,000.00,Bank Hafto
+February 27, 2026,,₹146.00,Milk
+February 27, 2026,,₹110.00,God
+February 27, 2026,,₹160.00,Vegetable & Fruit
+February 27, 2026,,₹60.00,Vegetable & Fruit
+February 28, 2026,,₹140.00,Extra
+February 28, 2026,bAHAR NASTO,₹169.00,Snacks & Farsan
+
+
+March 1, 2026,,₹195.00,Vegetable & Fruit
+March 1, 2026,,₹225.00,Groceries
+March 1, 2026,,₹180.00,Groceries
+March 1, 2026,,₹770.00,Groceries
+March 2, 2026,,₹320.00,Maid
+March 2, 2026,,₹35.00,Groceries
+March 2, 2026,,₹146.00,Groceries
+March 2, 2026,,₹136.00,Milk
+March 2, 2026,,₹370.00,Snacks & Farsan
+March 2, 2026,,₹200.00,Groceries
+March 4, 2026,,₹100.00,Petrol
+March 4, 2026,,₹32.00,Groceries
+March 6, 2026,,₹136.00,Milk
+March 7, 2026,,₹150.00,Naavi
+March 8, 2026,,₹100.00,Travel
+March 8, 2026,,₹400.00,Social Expense
+March 8, 2026,,₹100.00,Social Expense
+March 8, 2026,,₹400.00,Clothes
+March 8, 2026,,₹122.00,Milk
+March 9, 2026,,₹10.00,Groceries
+March 9, 2026,,₹2,850.00,Groceries
+March 9, 2026,,₹10.00,Milk
+March 9, 2026,,₹5.00,God
+March 9, 2026,,₹1,754.00,Light Bill
+March 9, 2026,,₹65.00,Groceries
+March 9, 2026,,₹20.00,Travel
+March 9, 2026,,₹70.00,Groceries
+March 10, 2026,,₹400.00,Medical
+March 10, 2026,,₹100.00,Snacks & Farsan
+March 10, 2026,,₹4,000.00,Bank Hafto
+March 10, 2026,,₹2,000.00,Savings
+March 12, 2026,,₹136.00,Milk
+March 12, 2026,,₹2,900.00,Medical
+March 12, 2026,,₹20.00,Vegetable & Fruit
+March 14, 2026,,₹90.00,Groceries
+March 14, 2026,,₹25.00,God
+March 14, 2026,,₹80.00,Vegetable & Fruit
+March 14, 2026,,₹50.00,Social Expense
+March 15, 2026,,₹50.00,Travel
+March 15, 2026,,₹102.00,Milk
+March 15, 2026,,₹130.00,Groceries
+March 15, 2026,,₹150.00,Vegetable & Fruit
+March 17, 2026,,₹146.00,Milk
+March 17, 2026,,₹940.00,Gas
+March 17, 2026,,₹150.00,Groceries
+March 19, 2026,,₹190.00,Milk
+March 20, 2026,,₹200.00,Maid
+March 24, 2026,,₹282.00,Milk
+March 25, 2026,,₹50.00,Social Expense
+March 27, 2026,,₹280.00,Vegetable & Fruit
+March 28, 2026,,₹130.00,God
+March 27, 2026,,₹6,150.00,Groceries
+March 28, 2026,,₹515.00,Groceries
+March 28, 2026,,₹50.00,Vegetable & Fruit
+March 28, 2026,,₹136.00,Milk
+March 28, 2026,,₹219.00,Groceries
+March 30, 2026,,₹300.00,Maid
+March 30, 2026,,₹102.00,Milk
+March 31, 2026,,₹50.00,Travel
+
+
+April 1, 2026,,₹60.00,Travel
+April 2, 2026,,₹136.00,Milk
+April 2, 2026,,₹100.00,Groceries
+April 3, 2026,,₹150.00,Snacks & Farsan
+April 3, 2026,,₹500.00,Social Expense
+April 5, 2026,,₹112.00,Milk
+April 5, 2026,,₹225.00,Groceries
+April 6, 2026,,₹100.00,Maid
+April 7, 2026,,₹520.00,Medical
+April 7, 2026,,₹550.00,Medical
+April 7, 2026,,₹60.00,Travel
+April 8, 2026,,₹146.00,Milk
+April 8, 2026,,₹100.00,Maid
+April 8, 2026,,₹45.00,Groceries
+April 9, 2026,,₹45.00,Vegetable & Fruit
+April 9, 2026,,₹140.00,Vegetable & Fruit
+April 9, 2026,,₹200.00,Snacks & Farsan
+April 10, 2026,,₹373.00,Groceries
+April 11, 2026,,₹1,209.00,Groceries
+April 11, 2026,,₹100.00,Maid
+April 12, 2026,,₹102.00,Milk
+April 12, 2026,,₹100.00,Petrol
+April 12, 2026,,₹510.00,Vegetable & Fruit
+April 12, 2026,,₹75.00,Snacks & Farsan
+April 12, 2026,,₹100.00,Petrol
+April 15, 2026,,₹146.00,Milk
+April 15, 2026,,₹50.00,Travel
+April 17, 2026,,₹200.00,Maid
+April 17, 2026,,₹10.00,Social Expense
+April 17, 2026,,₹86.00,Travel
+April 17, 2026,,₹200.00,Vegetable & Fruit
+April 18, 2026,,₹5,320.00,Bank Hafto
+April 18, 2026,Ghau,₹7,650.00,Groceries
+April 18, 2026,Grocery,₹600.00,Groceries
+April 18, 2026,,₹150.00,Social Expense
+April 18, 2026,,₹90.00,Vegetable & Fruit
+April 18, 2026,Shamppoo,₹503.00,Groceries
+April 22, 2026,,₹136.00,Milk
+April 26, 2026,,₹146.00,Milk
+April 25, 2026,,₹100.00,Maid
+April 25, 2026,,₹500.00,Vegetable & Fruit
+April 25, 2026,,₹105.00,Snacks & Farsan
+April 25, 2026,,₹200.00,Social Expense
+April 28, 2026,,₹100.00,Maid
+April 28, 2026,,₹10.00,Social Expense
+April 29, 2026,,₹102.00,Milk
+April 30, 2026,,₹30.00,Travel
+April 28, 2026,Urban ,₹10,000.00,Savings
+
+May 1, 2026,,₹300.00,Maid
+May 2, 2026,,₹136.00,Milk
+May 3, 2026,,₹150.00,Vegetable & Fruit
+May 3, 2026,,₹650.00,Vegetable & Fruit
+May 3, 2026,,₹95.00,Vegetable & Fruit
+May 3, 2026,AC,₹472.00,Gadgets
+May 3, 2026,,₹200.00,Petrol
+May 3, 2026,,₹100.00,Snacks & Farsan
+May 4, 2026,,₹50.00,Groceries
+May 5, 2026,,₹165.00,Groceries
+May 5, 2026,,₹10,000.00,Savings
+May 5, 2026,,₹159.00,Milk
+May 6, 2026,,₹50.00,Vegetable & Fruit
+May 6, 2026,,₹700.00,Social Expense
+May 6, 2026,,₹50.00,Travel
+May 6, 2026,,₹220.00,Snacks & Farsan
+May 9, 2026,,₹100.00,Maid
+May 9, 2026,,₹50.00,Vegetable & Fruit
+May 9, 2026,,₹151.00,Milk
+May 9, 2026,,₹270.00,Snacks & Farsan
+May 10, 2026,,₹241.00,Social Expense
+May 10, 2026,,₹2,700.00,Social Expense
+May 10, 2026,,₹100.00,Maid
+May 10, 2026,,₹150.00,Gadgets
+May 10, 2026,,₹400.00,Medical
+May 10, 2026,,₹800.00,Snacks & Farsan
+May 10, 2026,,₹3,216.00,Light Bill
+May 13, 2026,Milk,₹136.00,Milk
+May 13, 2026,Jalaram,₹180.00,Snacks & Farsan
+May 13, 2026,,₹490.00,Vegetable & Fruit
+May 14, 2026,Dada Recharge,₹666.00,Recharge
+May 14, 2026,,₹200.00,Social Expense
+May 15, 2026,,₹100.00,Maid
+May 15, 2026,,₹180.00,Snacks & Farsan
+May 15, 2026,,₹105.00,Milk
+May 16, 2026,,₹10.00,God
+May 16, 2026,Dhrishiv & Vishwa,₹1,000.00,Social Expense
+May 16, 2026,EC PANKHA,₹1,000.00,Gadgets
+May 17, 2026,,₹100.00,Maid
+May 18, 2026,,₹350.00,Groceries
+May 18, 2026,,₹130.00,Vegetable & Fruit
+May 18, 2026,,₹20.00,Travel
+May 19, 2026,,₹800.00,Repairing
+May 19, 2026,,₹600.00,Maid
+May 19, 2026,Global,₹2,430.00,Vegetable & Fruit
+May 31, 2026,Global,₹2,803.00,Groceries
+May 31, 2026,Global,₹450.00,Social Expense
+May 31, 2026,Global,₹510.00,God
+May 31, 2026,Global,₹555.00,Milk
+May 31, 2026,,₹2,000.00,Medical
+May 31, 2026,,₹998.00,Snacks & Farsan
+
+June 1, 2026,,₹518.00,Travel
+June 1, 2026,,₹2,815.00,Vegetable & Fruit
+June 1, 2026,,₹1,552.00,Milk
+June 1, 2026,,₹1,300.00,Maid
+June 1, 2026,,₹5,440.00,Social Expense
+June 1, 2026,,₹3,932.00,Groceries
+June 1, 2026,,₹320.00,Medical
+June 1, 2026,,₹15,500.00,Social Expense
+June 1, 2026,,₹320.00,Snacks & Farsan
+
+
+July 1, 2026,,₹120.00,Travel
+July 1, 2026,,₹525.00,Vegetable & Fruit
+July 1, 2026,,₹900.00,Maid
+July 1, 2026,,₹510.00,Milk
+July 1, 2026,,₹1,505.00,Groceries
+July 1, 2026,,₹2,570.00,Medical
+July 1, 2026,,₹30.00,Repairing
+July 1, 2026,,₹2,300.00,Social Expense
+July 1, 2026,,₹11,702.00,Light Bill
+July 1, 2026,,₹34,823.00,Mediclame
+July 1, 2026,,₹1,000.00,Extra
+July 1, 2026,Dmart,₹630.00,Groceries
+July 1, 2026,Milk,₹140.00,Milk
+July 19, 2026,Fruits,₹50.00,Vegetable & Fruit
+July 19, 2026,One Plus Cable,₹849.00,Gadgets
+July 19, 2026,Paneer,₹100.00,Groceries
+July 19, 2026,Ice Cream,₹365.00,Groceries
+July 19, 2026,Milk,₹105.00,Milk
+July 19, 2026,Petrol ,₹200.00,Petrol
+July 19, 2026,Cable Protector,₹20.00,Gadgets
+July 19, 2026,,₹160.00,Milk
+July 19, 2026,,₹60.00,Groceries
+July 19, 2026,,₹150.00,Groceries
+July 19, 2026,,₹125.00,Groceries
+July 20, 2026,Ratlami & Jiralu Guest,₹240.00,Social Expense
+July 20, 2026,Farsan,₹90.00,Snacks & Farsan
+July 20, 2026,Vegetable,₹100.00,Vegetable & Fruit
+July 20, 2026,Petrol,₹200.00,Petrol
+
+

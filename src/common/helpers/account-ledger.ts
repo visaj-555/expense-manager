@@ -1,13 +1,52 @@
 import { PrismaService } from 'src/common/database/prisma.service';
 
+const DEFAULT_TIMEZONE = 'Asia/Kolkata';
+
+export function calendarDateInTimeZone(date: Date, timeZone: string): string {
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(date);
+}
+
 /**
- * Today's cash is a snapshot. Catching up history (backdated txs) must not
- * rewrite that snapshot — leftover / debt already lived in real life.
+ * Stored tx dates are UTC midnight of the calendar day the user picked.
+ * Compare that day to "today" in the user's timezone.
  */
-export function isBackdated(date: Date, now = new Date()): boolean {
-  const startOfToday = new Date(now);
-  startOfToday.setHours(0, 0, 0, 0);
-  return date < startOfToday;
+export function isLiveToday(
+  date: Date,
+  timeZone = DEFAULT_TIMEZONE,
+  now = new Date(),
+): boolean {
+  return (
+    calendarDateInTimeZone(date, 'UTC') ===
+    calendarDateInTimeZone(now, timeZone)
+  );
+}
+
+/**
+ * Today's cash/bank is a snapshot. Catch-up (past or future dates) must not
+ * rewrite that number — leftover / debt already lived in real life.
+ */
+export function shouldPreserveCurrentBalance(
+  date: Date,
+  override?: boolean,
+  timeZone = DEFAULT_TIMEZONE,
+  now = new Date(),
+): boolean {
+  if (override !== undefined) return override;
+  return !isLiveToday(date, timeZone, now);
+}
+
+/** @deprecated Use shouldPreserveCurrentBalance — also true for future dates. */
+export function isBackdated(
+  date: Date,
+  now = new Date(),
+  timeZone = DEFAULT_TIMEZONE,
+): boolean {
+  return !isLiveToday(date, timeZone, now);
 }
 
 export async function getAccountCurrentBalance(

@@ -43,6 +43,7 @@ export type RecurringTransactionMinAggregateOutputType = {
   amount: runtime.Decimal | null
   title: string | null
   notes: string | null
+  paymentMethod: $Enums.PaymentMethod | null
   frequency: $Enums.RecurringFrequency | null
   startDate: Date | null
   endDate: Date | null
@@ -62,6 +63,7 @@ export type RecurringTransactionMaxAggregateOutputType = {
   amount: runtime.Decimal | null
   title: string | null
   notes: string | null
+  paymentMethod: $Enums.PaymentMethod | null
   frequency: $Enums.RecurringFrequency | null
   startDate: Date | null
   endDate: Date | null
@@ -81,6 +83,7 @@ export type RecurringTransactionCountAggregateOutputType = {
   amount: number
   title: number
   notes: number
+  paymentMethod: number
   frequency: number
   startDate: number
   endDate: number
@@ -110,6 +113,7 @@ export type RecurringTransactionMinAggregateInputType = {
   amount?: true
   title?: true
   notes?: true
+  paymentMethod?: true
   frequency?: true
   startDate?: true
   endDate?: true
@@ -129,6 +133,7 @@ export type RecurringTransactionMaxAggregateInputType = {
   amount?: true
   title?: true
   notes?: true
+  paymentMethod?: true
   frequency?: true
   startDate?: true
   endDate?: true
@@ -148,6 +153,7 @@ export type RecurringTransactionCountAggregateInputType = {
   amount?: true
   title?: true
   notes?: true
+  paymentMethod?: true
   frequency?: true
   startDate?: true
   endDate?: true
@@ -254,6 +260,7 @@ export type RecurringTransactionGroupByOutputType = {
   amount: runtime.Decimal
   title: string
   notes: string | null
+  paymentMethod: $Enums.PaymentMethod
   frequency: $Enums.RecurringFrequency
   startDate: Date
   endDate: Date | null
@@ -296,6 +303,7 @@ export type RecurringTransactionWhereInput = {
   amount?: Prisma.DecimalFilter<"RecurringTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   title?: Prisma.StringFilter<"RecurringTransaction"> | string
   notes?: Prisma.StringNullableFilter<"RecurringTransaction"> | string | null
+  paymentMethod?: Prisma.EnumPaymentMethodFilter<"RecurringTransaction"> | $Enums.PaymentMethod
   frequency?: Prisma.EnumRecurringFrequencyFilter<"RecurringTransaction"> | $Enums.RecurringFrequency
   startDate?: Prisma.DateTimeFilter<"RecurringTransaction"> | Date | string
   endDate?: Prisma.DateTimeNullableFilter<"RecurringTransaction"> | Date | string | null
@@ -318,6 +326,7 @@ export type RecurringTransactionOrderByWithRelationInput = {
   amount?: Prisma.SortOrder
   title?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  paymentMethod?: Prisma.SortOrder
   frequency?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -343,6 +352,7 @@ export type RecurringTransactionWhereUniqueInput = Prisma.AtLeast<{
   amount?: Prisma.DecimalFilter<"RecurringTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   title?: Prisma.StringFilter<"RecurringTransaction"> | string
   notes?: Prisma.StringNullableFilter<"RecurringTransaction"> | string | null
+  paymentMethod?: Prisma.EnumPaymentMethodFilter<"RecurringTransaction"> | $Enums.PaymentMethod
   frequency?: Prisma.EnumRecurringFrequencyFilter<"RecurringTransaction"> | $Enums.RecurringFrequency
   startDate?: Prisma.DateTimeFilter<"RecurringTransaction"> | Date | string
   endDate?: Prisma.DateTimeNullableFilter<"RecurringTransaction"> | Date | string | null
@@ -365,6 +375,7 @@ export type RecurringTransactionOrderByWithAggregationInput = {
   amount?: Prisma.SortOrder
   title?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  paymentMethod?: Prisma.SortOrder
   frequency?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -392,6 +403,7 @@ export type RecurringTransactionScalarWhereWithAggregatesInput = {
   amount?: Prisma.DecimalWithAggregatesFilter<"RecurringTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   title?: Prisma.StringWithAggregatesFilter<"RecurringTransaction"> | string
   notes?: Prisma.StringNullableWithAggregatesFilter<"RecurringTransaction"> | string | null
+  paymentMethod?: Prisma.EnumPaymentMethodWithAggregatesFilter<"RecurringTransaction"> | $Enums.PaymentMethod
   frequency?: Prisma.EnumRecurringFrequencyWithAggregatesFilter<"RecurringTransaction"> | $Enums.RecurringFrequency
   startDate?: Prisma.DateTimeWithAggregatesFilter<"RecurringTransaction"> | Date | string
   endDate?: Prisma.DateTimeNullableWithAggregatesFilter<"RecurringTransaction"> | Date | string | null
@@ -408,6 +420,7 @@ export type RecurringTransactionCreateInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   title: string
   notes?: string | null
+  paymentMethod?: $Enums.PaymentMethod
   frequency: $Enums.RecurringFrequency
   startDate: Date | string
   endDate?: Date | string | null
@@ -430,6 +443,7 @@ export type RecurringTransactionUncheckedCreateInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   title: string
   notes?: string | null
+  paymentMethod?: $Enums.PaymentMethod
   frequency: $Enums.RecurringFrequency
   startDate: Date | string
   endDate?: Date | string | null
@@ -446,6 +460,7 @@ export type RecurringTransactionUpdateInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   frequency?: Prisma.EnumRecurringFrequencyFieldUpdateOperationsInput | $Enums.RecurringFrequency
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -468,6 +483,7 @@ export type RecurringTransactionUncheckedUpdateInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   frequency?: Prisma.EnumRecurringFrequencyFieldUpdateOperationsInput | $Enums.RecurringFrequency
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -487,6 +503,7 @@ export type RecurringTransactionCreateManyInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   title: string
   notes?: string | null
+  paymentMethod?: $Enums.PaymentMethod
   frequency: $Enums.RecurringFrequency
   startDate: Date | string
   endDate?: Date | string | null
@@ -503,6 +520,7 @@ export type RecurringTransactionUpdateManyMutationInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   frequency?: Prisma.EnumRecurringFrequencyFieldUpdateOperationsInput | $Enums.RecurringFrequency
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -522,6 +540,7 @@ export type RecurringTransactionUncheckedUpdateManyInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   frequency?: Prisma.EnumRecurringFrequencyFieldUpdateOperationsInput | $Enums.RecurringFrequency
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -551,6 +570,7 @@ export type RecurringTransactionCountOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   title?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  paymentMethod?: Prisma.SortOrder
   frequency?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
@@ -574,6 +594,7 @@ export type RecurringTransactionMaxOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   title?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  paymentMethod?: Prisma.SortOrder
   frequency?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
@@ -593,6 +614,7 @@ export type RecurringTransactionMinOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   title?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  paymentMethod?: Prisma.SortOrder
   frequency?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
@@ -733,6 +755,10 @@ export type RecurringTransactionUncheckedUpdateManyWithoutCategoryNestedInput = 
   deleteMany?: Prisma.RecurringTransactionScalarWhereInput | Prisma.RecurringTransactionScalarWhereInput[]
 }
 
+export type EnumPaymentMethodFieldUpdateOperationsInput = {
+  set?: $Enums.PaymentMethod
+}
+
 export type EnumRecurringFrequencyFieldUpdateOperationsInput = {
   set?: $Enums.RecurringFrequency
 }
@@ -743,6 +769,7 @@ export type RecurringTransactionCreateWithoutUserInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   title: string
   notes?: string | null
+  paymentMethod?: $Enums.PaymentMethod
   frequency: $Enums.RecurringFrequency
   startDate: Date | string
   endDate?: Date | string | null
@@ -763,6 +790,7 @@ export type RecurringTransactionUncheckedCreateWithoutUserInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   title: string
   notes?: string | null
+  paymentMethod?: $Enums.PaymentMethod
   frequency: $Enums.RecurringFrequency
   startDate: Date | string
   endDate?: Date | string | null
@@ -811,6 +839,7 @@ export type RecurringTransactionScalarWhereInput = {
   amount?: Prisma.DecimalFilter<"RecurringTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   title?: Prisma.StringFilter<"RecurringTransaction"> | string
   notes?: Prisma.StringNullableFilter<"RecurringTransaction"> | string | null
+  paymentMethod?: Prisma.EnumPaymentMethodFilter<"RecurringTransaction"> | $Enums.PaymentMethod
   frequency?: Prisma.EnumRecurringFrequencyFilter<"RecurringTransaction"> | $Enums.RecurringFrequency
   startDate?: Prisma.DateTimeFilter<"RecurringTransaction"> | Date | string
   endDate?: Prisma.DateTimeNullableFilter<"RecurringTransaction"> | Date | string | null
@@ -827,6 +856,7 @@ export type RecurringTransactionCreateWithoutAccountInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   title: string
   notes?: string | null
+  paymentMethod?: $Enums.PaymentMethod
   frequency: $Enums.RecurringFrequency
   startDate: Date | string
   endDate?: Date | string | null
@@ -847,6 +877,7 @@ export type RecurringTransactionUncheckedCreateWithoutAccountInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   title: string
   notes?: string | null
+  paymentMethod?: $Enums.PaymentMethod
   frequency: $Enums.RecurringFrequency
   startDate: Date | string
   endDate?: Date | string | null
@@ -889,6 +920,7 @@ export type RecurringTransactionCreateWithoutCategoryInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   title: string
   notes?: string | null
+  paymentMethod?: $Enums.PaymentMethod
   frequency: $Enums.RecurringFrequency
   startDate: Date | string
   endDate?: Date | string | null
@@ -909,6 +941,7 @@ export type RecurringTransactionUncheckedCreateWithoutCategoryInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   title: string
   notes?: string | null
+  paymentMethod?: $Enums.PaymentMethod
   frequency: $Enums.RecurringFrequency
   startDate: Date | string
   endDate?: Date | string | null
@@ -953,6 +986,7 @@ export type RecurringTransactionCreateManyUserInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   title: string
   notes?: string | null
+  paymentMethod?: $Enums.PaymentMethod
   frequency: $Enums.RecurringFrequency
   startDate: Date | string
   endDate?: Date | string | null
@@ -969,6 +1003,7 @@ export type RecurringTransactionUpdateWithoutUserInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   frequency?: Prisma.EnumRecurringFrequencyFieldUpdateOperationsInput | $Enums.RecurringFrequency
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -989,6 +1024,7 @@ export type RecurringTransactionUncheckedUpdateWithoutUserInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   frequency?: Prisma.EnumRecurringFrequencyFieldUpdateOperationsInput | $Enums.RecurringFrequency
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1007,6 +1043,7 @@ export type RecurringTransactionUncheckedUpdateManyWithoutUserInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   frequency?: Prisma.EnumRecurringFrequencyFieldUpdateOperationsInput | $Enums.RecurringFrequency
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1025,6 +1062,7 @@ export type RecurringTransactionCreateManyAccountInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   title: string
   notes?: string | null
+  paymentMethod?: $Enums.PaymentMethod
   frequency: $Enums.RecurringFrequency
   startDate: Date | string
   endDate?: Date | string | null
@@ -1041,6 +1079,7 @@ export type RecurringTransactionUpdateWithoutAccountInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   frequency?: Prisma.EnumRecurringFrequencyFieldUpdateOperationsInput | $Enums.RecurringFrequency
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1061,6 +1100,7 @@ export type RecurringTransactionUncheckedUpdateWithoutAccountInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   frequency?: Prisma.EnumRecurringFrequencyFieldUpdateOperationsInput | $Enums.RecurringFrequency
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1079,6 +1119,7 @@ export type RecurringTransactionUncheckedUpdateManyWithoutAccountInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   frequency?: Prisma.EnumRecurringFrequencyFieldUpdateOperationsInput | $Enums.RecurringFrequency
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1097,6 +1138,7 @@ export type RecurringTransactionCreateManyCategoryInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   title: string
   notes?: string | null
+  paymentMethod?: $Enums.PaymentMethod
   frequency: $Enums.RecurringFrequency
   startDate: Date | string
   endDate?: Date | string | null
@@ -1113,6 +1155,7 @@ export type RecurringTransactionUpdateWithoutCategoryInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   frequency?: Prisma.EnumRecurringFrequencyFieldUpdateOperationsInput | $Enums.RecurringFrequency
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1133,6 +1176,7 @@ export type RecurringTransactionUncheckedUpdateWithoutCategoryInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   frequency?: Prisma.EnumRecurringFrequencyFieldUpdateOperationsInput | $Enums.RecurringFrequency
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1151,6 +1195,7 @@ export type RecurringTransactionUncheckedUpdateManyWithoutCategoryInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   frequency?: Prisma.EnumRecurringFrequencyFieldUpdateOperationsInput | $Enums.RecurringFrequency
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1172,6 +1217,7 @@ export type RecurringTransactionSelect<ExtArgs extends runtime.Types.Extensions.
   amount?: boolean
   title?: boolean
   notes?: boolean
+  paymentMethod?: boolean
   frequency?: boolean
   startDate?: boolean
   endDate?: boolean
@@ -1194,6 +1240,7 @@ export type RecurringTransactionSelectCreateManyAndReturn<ExtArgs extends runtim
   amount?: boolean
   title?: boolean
   notes?: boolean
+  paymentMethod?: boolean
   frequency?: boolean
   startDate?: boolean
   endDate?: boolean
@@ -1216,6 +1263,7 @@ export type RecurringTransactionSelectUpdateManyAndReturn<ExtArgs extends runtim
   amount?: boolean
   title?: boolean
   notes?: boolean
+  paymentMethod?: boolean
   frequency?: boolean
   startDate?: boolean
   endDate?: boolean
@@ -1238,6 +1286,7 @@ export type RecurringTransactionSelectScalar = {
   amount?: boolean
   title?: boolean
   notes?: boolean
+  paymentMethod?: boolean
   frequency?: boolean
   startDate?: boolean
   endDate?: boolean
@@ -1248,7 +1297,7 @@ export type RecurringTransactionSelectScalar = {
   updatedAt?: boolean
 }
 
-export type RecurringTransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "accountId" | "categoryId" | "type" | "amount" | "title" | "notes" | "frequency" | "startDate" | "endDate" | "lastProcessed" | "nextRunDate" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["recurringTransaction"]>
+export type RecurringTransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "accountId" | "categoryId" | "type" | "amount" | "title" | "notes" | "paymentMethod" | "frequency" | "startDate" | "endDate" | "lastProcessed" | "nextRunDate" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["recurringTransaction"]>
 export type RecurringTransactionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   account?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
@@ -1281,6 +1330,7 @@ export type $RecurringTransactionPayload<ExtArgs extends runtime.Types.Extension
     amount: runtime.Decimal
     title: string
     notes: string | null
+    paymentMethod: $Enums.PaymentMethod
     frequency: $Enums.RecurringFrequency
     startDate: Date
     endDate: Date | null
@@ -1723,6 +1773,7 @@ export interface RecurringTransactionFieldRefs {
   readonly amount: Prisma.FieldRef<"RecurringTransaction", 'Decimal'>
   readonly title: Prisma.FieldRef<"RecurringTransaction", 'String'>
   readonly notes: Prisma.FieldRef<"RecurringTransaction", 'String'>
+  readonly paymentMethod: Prisma.FieldRef<"RecurringTransaction", 'PaymentMethod'>
   readonly frequency: Prisma.FieldRef<"RecurringTransaction", 'RecurringFrequency'>
   readonly startDate: Prisma.FieldRef<"RecurringTransaction", 'DateTime'>
   readonly endDate: Prisma.FieldRef<"RecurringTransaction", 'DateTime'>

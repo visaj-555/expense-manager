@@ -372,5 +372,52 @@ July 20, 2026,Ratlami & Jiralu Guest,₹240.00,Social Expense
 July 20, 2026,Farsan,₹90.00,Snacks & Farsan
 July 20, 2026,Vegetable,₹100.00,Vegetable & Fruit
 July 20, 2026,Petrol,₹200.00,Petrol
+July 22, 2026,Maid,₹200.00,Maid
+July 22, 2026,,₹20.00,Travel
+July 22, 2026,,₹30.00,Vegetable & Fruit
+July 22, 2026,,₹40.00,Clothes
+July 24, 2026,,₹164.00,Milk
+July 24, 2026,,₹200.00,Social Expense
+July 25, 2026,,₹165.00,Groceries
+July 25, 2026,,₹310.00,Vegetable & Fruit
+July 25, 2026,,₹280.00,Vegetable & Fruit
+July 26, 2026,,₹50.00,Social Expense
+July 27, 2026,,₹140.00,Milk
+July 28, 2026,,₹100.00,Vegetable & Fruit
+July 29, 2026,,₹970.00,Gas
+July 29, 2026,,₹1,000.00,Social Expense
+July 30, 2026,,₹595.00,Groceries
+July 30, 2026,,₹20.00,Travel
+July 30, 2026,,₹1,000.00,Clothes
+July 30, 2026,,₹1,001.00,Social Expense
+July 30, 2026,,₹140.00,Milk
+August 1, 2026,,₹140.00,Milk
+August 1, 2026,,₹700.00,Maid
+August 2, 2026,,₹100.00,God
+August 2, 2026,,₹40.00,Travel
+August 2, 2026,,₹1,700.00,Social Expense
+August 4, 2026,,₹500.00,Clothes
+August 5, 2026,,₹155.00,Milk
+August 5, 2026,,₹175.00,Travel
+August 5, 2026,,₹100.00,Snacks & Farsan
+August 6, 2026,,₹55.00,God
+August 6, 2026,,₹100.00,Social Expense
+August 7, 2026,,₹300.00,Vegetable & Fruit
+August 7, 2026,,₹250.00,Snacks & Farsan
+August 7, 2026,,₹100.00,Social Expense
+August 7, 2026,,₹50.00,Vegetable & Fruit
+August 7, 2026,,₹60.00,Repairing
+August 7, 2026,,₹100.00,Maid
+August 8, 2026,,₹130.00,Vegetable & Fruit
+August 9, 2026,,₹200.00,Social Expense
+August 10, 2026,,₹25.00,God
+August 10, 2026,,₹140.00,Milk
+August 10, 2026,,₹680.00,Groceries
+August 10, 2026,,₹100.00,Maid
+August 13, 2026,,₹75.00,Medical
+August 14, 2026,,₹10.00,God
+August 14, 2026,,₹140.00,Milk
+August 15, 2026,,₹500.00,Social Expense
+August 15, 2026,,₹200.00,Groceries
 
 

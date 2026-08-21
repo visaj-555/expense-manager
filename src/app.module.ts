@@ -23,6 +23,7 @@ import { TransfersModule } from './modules/transfers/transfers.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { GoalsModule } from './modules/goals/goals.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
+import { AutomationsModule } from './modules/automations/automations.module';
 
 // ------------ ENVIRONMENT NORMALIZATION ------------ //
 const NODE_ENV = process.env.NODE_ENV ?? 'development';
@@ -72,7 +73,8 @@ console.log('isProd:', isProd);
     DashboardModule,
     GoalsModule,
     TransfersModule,
-    AnalyticsModule
+    AnalyticsModule,
+    AutomationsModule,
 
   ],
 

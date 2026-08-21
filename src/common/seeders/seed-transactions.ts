@@ -314,14 +314,27 @@ const RAW_TABLE = `
 | Office + Rain Travel            |    ₹405.00 | Office Travel    | 7/31/26  |
 | Vadodara-Food-Rapido            |    ₹455.00 | Social Expense   | 7/26/26  |
 | Junk                            |    ₹815.00 | Food             | 7/30/26  |
-| Milk + Anaj                     |    ₹290.00 | Home             | 8/8/26   |
-| Sandwich Preparation            |    ₹329.00 | Food             | 8/9/26   |
-| Laptop Adapter                  |    ₹654.00 | Gadgets          | 8/11/26  |
-| Dhd Travel                      |    ₹430.00 | Dahod            | 8/10/26  |
-| PG Rent                         |  ₹8,000.00 | PG               | 8/11/26  |
-| Social August                   |  ₹1,342.00 | Social Expense   | 8/31/26  |
-| Junk Food August                |    ₹295.00 | Food             | 8/31/26  |
 | Office Travel                   |     ₹90.00 | Office Travel    | 8/7/26   |
+| Milk + Anaj                     |    ₹290.00 | Home             | 8/8/26   |
+| Sandwich Preparation            |    ₹329.00 | Home             | 8/8/26   |
+| Laptop Adapter                  |    ₹654.00 | Gadgets          | 8/9/26   |
+| Dahod                           |    ₹450.00 | Dahod            | 8/10/26  |
+| Bday Treat                      |    ₹585.00 | Social Expense   | 8/12/26  |
+| Packaged                        |     ₹30.00 | Food             | 8/12/26  |
+| Adi                             |    ₹170.00 | Social Expense   | 8/13/26  |
+| Office Travel                   |     ₹70.00 | Office Travel    | 8/14/26  |
+| Mithai                          |    ₹240.00 | Home             | 8/14/26  |
+| Dhd Travel                      |    ₹433.00 | Dahod            | 8/14/26  |
+| Mummy Recharge                  |    ₹666.00 | Home             | 8/14/26  |
+| PG                              |  ₹8,000.00 | PG               | 8/15/26  |
+| Protein Ladoo                   |    ₹540.00 | Healthy Food     | 8/15/26  |
+| SIP                             |  ₹4,000.00 | SIP              | 8/15/26  |
+| Pav Bhaji                       |    ₹110.00 | Food             | 8/15/26  |
+| Milk                            |    ₹140.00 | Home             | 8/16/26  |
+| Dhd Travel                      |    ₹433.00 | Dahod            | 8/21/26  |
+| Office Travel                   |     ₹85.00 | Office Travel    | 8/21/26  |
+| Junk Food (Last : 20th)         |    ₹375.00 | Food             | 8/31/26  |
+| Social August                   |  ₹1,342.00 | Social Expense   | 8/31/26  |
 `;
 
 // ---------------------------------------------------------------------------

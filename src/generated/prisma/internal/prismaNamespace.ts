@@ -1507,6 +1507,7 @@ export const RecurringTransactionScalarFieldEnum = {
   amount: 'amount',
   title: 'title',
   notes: 'notes',
+  paymentMethod: 'paymentMethod',
   frequency: 'frequency',
   startDate: 'startDate',
   endDate: 'endDate',

@@ -6,6 +6,7 @@ import {
   IsOptional,
   IsString,
   IsUUID,
+  IsBoolean,
   IsDateString,
   Min,
   MaxLength,
@@ -76,6 +77,15 @@ export class CreateTransactionDto {
   @IsString()
   @MaxLength(200)
   location?: string;
+
+  @ApiPropertyOptional({
+    example: true,
+    description:
+      'Keep today\'s account snapshot unchanged (catch-up). Omit to auto-preserve past/future dates.',
+  })
+  @IsOptional()
+  @IsBoolean()
+  preserveCurrentBalance?: boolean;
 }
 
 // ─── Update ───────────────────────────────────────────────────────────────────

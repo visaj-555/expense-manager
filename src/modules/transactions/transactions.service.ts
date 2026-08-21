@@ -11,8 +11,8 @@ import { Prisma } from 'src/generated/prisma/client';
 import { CreateTransactionDto, TransactionQueryDto, UpdateTransactionDto } from './dto/transaction.payload.dto';
 import {
   getAccountCurrentBalance,
-  isBackdated,
   pinAccountCurrentBalance,
+  shouldPreserveCurrentBalance,
 } from 'src/common/helpers/account-ledger';
 
 
@@ -70,10 +70,13 @@ export class TransactionsService {
     }
 
     const transactionDate = new Date(dto.transactionDate);
-    const preserveToday =
-      isBackdated(transactionDate)
-        ? await getAccountCurrentBalance(this.prisma, dto.accountId)
-        : null;
+    const preserve = shouldPreserveCurrentBalance(
+      transactionDate,
+      dto.preserveCurrentBalance,
+    );
+    const snapshot = preserve
+      ? await getAccountCurrentBalance(this.prisma, dto.accountId)
+      : null;
 
     const raw = await this.prisma.transaction.create({
       data: {
@@ -91,8 +94,8 @@ export class TransactionsService {
       select: TRANSACTION_SELECT,
     });
 
-    if (preserveToday != null) {
-      await pinAccountCurrentBalance(this.prisma, dto.accountId, preserveToday);
+    if (snapshot != null) {
+      await pinAccountCurrentBalance(this.prisma, dto.accountId, snapshot);
     }
 
     return formatTransaction(raw);
@@ -220,14 +223,16 @@ export class TransactionsService {
     const affectedIds = new Set<string>([existing.accountId]);
     if (dto.accountId) affectedIds.add(dto.accountId);
 
-    const shouldPreserve =
-      isBackdated(existing.transactionDate) || isBackdated(nextDate);
+    const preserve =
+      dto.preserveCurrentBalance ??
+      (shouldPreserveCurrentBalance(existing.transactionDate) ||
+        shouldPreserveCurrentBalance(nextDate));
 
-    const snapshots = shouldPreserve
+    const snapshots = preserve
       ? await this.snapshotCurrents([...affectedIds])
       : null;
 
-    const { ...rest } = dto;
+    const { preserveCurrentBalance: _preserve, ...rest } = dto;
 
     const raw = await this.prisma.transaction.update({
       where: { id },
@@ -258,7 +263,7 @@ export class TransactionsService {
     });
     if (!existing) throw new NotFoundException('transactions.errors.notFound');
 
-    const preserveToday = isBackdated(existing.transactionDate)
+    const preserveToday = shouldPreserveCurrentBalance(existing.transactionDate)
       ? await getAccountCurrentBalance(this.prisma, existing.accountId)
       : null;
 

@@ -263,6 +263,31 @@ async function main() {
     `  ✓ Inserted ${inserted.count} expenses (₹${total.toLocaleString('en-IN')})`,
   );
 
+  const TARGET_BANK_BALANCE = 89_000;
+  const bankTx = await prisma.account.findUnique({
+    where: { id: account.id },
+    select: {
+      openingBalance: true,
+      transactions: {
+        where: { type: { in: ['INCOME', 'EXPENSE'] } },
+        select: { type: true, amount: true },
+      },
+    },
+  });
+  if (bankTx) {
+    const delta = bankTx.transactions.reduce((sum, tx) => {
+      const amt = Number(tx.amount);
+      return tx.type === 'INCOME' ? sum + amt : sum - amt;
+    }, 0);
+    await prisma.account.update({
+      where: { id: account.id },
+      data: { openingBalance: TARGET_BANK_BALANCE - delta },
+    });
+    console.log(
+      `  ✓ Pinned ${account.name} current balance to ₹${TARGET_BANK_BALANCE.toLocaleString('en-IN')}`,
+    );
+  }
+
   console.log(`\nLogin: ${EMAIL} / ${PASSWORD}`);
 }
 

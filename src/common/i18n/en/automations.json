@@ -1,0 +1,18 @@
+{
+  "success": {
+    "created": "Automation created successfully",
+    "fetched": "Automations fetched successfully",
+    "updated": "Automation updated successfully",
+    "deleted": "Automation deleted successfully",
+    "processed": "Due deductions posted successfully"
+  },
+  "errors": {
+    "notFound": "Automation not found",
+    "forbidden": "You do not have access to this automation",
+    "accountNotFound": "Account not found",
+    "categoryNotFound": "Category not found",
+    "accountArchived": "Cannot automate an archived account",
+    "categoryArchived": "Cannot use an archived category",
+    "notDue": "This deduction is not due yet"
+  }
+}

@@ -1,12 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/common/database/prisma.service';
 import { DashboardResponseDto } from './dto/dashboard.response.dto';
+import { AutomationsService } from '../automations/automations.service';
 
 @Injectable()
 export class DashboardService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly automationsService: AutomationsService,
+  ) {}
 
   async getDashboard(userId: string): Promise<DashboardResponseDto> {
+    await this.automationsService.processDue(userId);
+
     const now = new Date();
     const startOfCurrentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
     const endOfCurrentMonth = new Date(

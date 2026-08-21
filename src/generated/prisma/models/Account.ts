@@ -28,10 +28,14 @@ export type AggregateAccount = {
 
 export type AccountAvgAggregateOutputType = {
   openingBalance: runtime.Decimal | null
+  fdInterestRate: runtime.Decimal | null
+  fdTenureMonths: number | null
 }
 
 export type AccountSumAggregateOutputType = {
   openingBalance: runtime.Decimal | null
+  fdInterestRate: runtime.Decimal | null
+  fdTenureMonths: number | null
 }
 
 export type AccountMinAggregateOutputType = {
@@ -43,6 +47,10 @@ export type AccountMinAggregateOutputType = {
   isArchived: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  fdInterestRate: runtime.Decimal | null
+  fdStartDate: Date | null
+  fdTenureMonths: number | null
+  fdCompounding: $Enums.FdCompounding | null
 }
 
 export type AccountMaxAggregateOutputType = {
@@ -54,6 +62,10 @@ export type AccountMaxAggregateOutputType = {
   isArchived: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
+  fdInterestRate: runtime.Decimal | null
+  fdStartDate: Date | null
+  fdTenureMonths: number | null
+  fdCompounding: $Enums.FdCompounding | null
 }
 
 export type AccountCountAggregateOutputType = {
@@ -65,16 +77,24 @@ export type AccountCountAggregateOutputType = {
   isArchived: number
   createdAt: number
   updatedAt: number
+  fdInterestRate: number
+  fdStartDate: number
+  fdTenureMonths: number
+  fdCompounding: number
   _all: number
 }
 
 
 export type AccountAvgAggregateInputType = {
   openingBalance?: true
+  fdInterestRate?: true
+  fdTenureMonths?: true
 }
 
 export type AccountSumAggregateInputType = {
   openingBalance?: true
+  fdInterestRate?: true
+  fdTenureMonths?: true
 }
 
 export type AccountMinAggregateInputType = {
@@ -86,6 +106,10 @@ export type AccountMinAggregateInputType = {
   isArchived?: true
   createdAt?: true
   updatedAt?: true
+  fdInterestRate?: true
+  fdStartDate?: true
+  fdTenureMonths?: true
+  fdCompounding?: true
 }
 
 export type AccountMaxAggregateInputType = {
@@ -97,6 +121,10 @@ export type AccountMaxAggregateInputType = {
   isArchived?: true
   createdAt?: true
   updatedAt?: true
+  fdInterestRate?: true
+  fdStartDate?: true
+  fdTenureMonths?: true
+  fdCompounding?: true
 }
 
 export type AccountCountAggregateInputType = {
@@ -108,6 +136,10 @@ export type AccountCountAggregateInputType = {
   isArchived?: true
   createdAt?: true
   updatedAt?: true
+  fdInterestRate?: true
+  fdStartDate?: true
+  fdTenureMonths?: true
+  fdCompounding?: true
   _all?: true
 }
 
@@ -206,6 +238,10 @@ export type AccountGroupByOutputType = {
   isArchived: boolean
   createdAt: Date
   updatedAt: Date
+  fdInterestRate: runtime.Decimal | null
+  fdStartDate: Date | null
+  fdTenureMonths: number | null
+  fdCompounding: $Enums.FdCompounding | null
   _count: AccountCountAggregateOutputType | null
   _avg: AccountAvgAggregateOutputType | null
   _sum: AccountSumAggregateOutputType | null
@@ -240,6 +276,10 @@ export type AccountWhereInput = {
   isArchived?: Prisma.BoolFilter<"Account"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Account"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Account"> | Date | string
+  fdInterestRate?: Prisma.DecimalNullableFilter<"Account"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
+  fdTenureMonths?: Prisma.IntNullableFilter<"Account"> | number | null
+  fdCompounding?: Prisma.EnumFdCompoundingNullableFilter<"Account"> | $Enums.FdCompounding | null
   transactions?: Prisma.TransactionListRelationFilter
   recurringTransactions?: Prisma.RecurringTransactionListRelationFilter
   transfersFrom?: Prisma.TransferListRelationFilter
@@ -256,6 +296,10 @@ export type AccountOrderByWithRelationInput = {
   isArchived?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  fdInterestRate?: Prisma.SortOrderInput | Prisma.SortOrder
+  fdStartDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  fdTenureMonths?: Prisma.SortOrderInput | Prisma.SortOrder
+  fdCompounding?: Prisma.SortOrderInput | Prisma.SortOrder
   transactions?: Prisma.TransactionOrderByRelationAggregateInput
   recurringTransactions?: Prisma.RecurringTransactionOrderByRelationAggregateInput
   transfersFrom?: Prisma.TransferOrderByRelationAggregateInput
@@ -275,6 +319,10 @@ export type AccountWhereUniqueInput = Prisma.AtLeast<{
   isArchived?: Prisma.BoolFilter<"Account"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Account"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Account"> | Date | string
+  fdInterestRate?: Prisma.DecimalNullableFilter<"Account"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
+  fdTenureMonths?: Prisma.IntNullableFilter<"Account"> | number | null
+  fdCompounding?: Prisma.EnumFdCompoundingNullableFilter<"Account"> | $Enums.FdCompounding | null
   transactions?: Prisma.TransactionListRelationFilter
   recurringTransactions?: Prisma.RecurringTransactionListRelationFilter
   transfersFrom?: Prisma.TransferListRelationFilter
@@ -291,6 +339,10 @@ export type AccountOrderByWithAggregationInput = {
   isArchived?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  fdInterestRate?: Prisma.SortOrderInput | Prisma.SortOrder
+  fdStartDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  fdTenureMonths?: Prisma.SortOrderInput | Prisma.SortOrder
+  fdCompounding?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AccountCountOrderByAggregateInput
   _avg?: Prisma.AccountAvgOrderByAggregateInput
   _max?: Prisma.AccountMaxOrderByAggregateInput
@@ -310,6 +362,10 @@ export type AccountScalarWhereWithAggregatesInput = {
   isArchived?: Prisma.BoolWithAggregatesFilter<"Account"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Account"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Account"> | Date | string
+  fdInterestRate?: Prisma.DecimalNullableWithAggregatesFilter<"Account"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Account"> | Date | string | null
+  fdTenureMonths?: Prisma.IntNullableWithAggregatesFilter<"Account"> | number | null
+  fdCompounding?: Prisma.EnumFdCompoundingNullableWithAggregatesFilter<"Account"> | $Enums.FdCompounding | null
 }
 
 export type AccountCreateInput = {
@@ -320,6 +376,10 @@ export type AccountCreateInput = {
   isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  fdInterestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Date | string | null
+  fdTenureMonths?: number | null
+  fdCompounding?: $Enums.FdCompounding | null
   transactions?: Prisma.TransactionCreateNestedManyWithoutAccountInput
   recurringTransactions?: Prisma.RecurringTransactionCreateNestedManyWithoutAccountInput
   transfersFrom?: Prisma.TransferCreateNestedManyWithoutFromAccountInput
@@ -336,6 +396,10 @@ export type AccountUncheckedCreateInput = {
   isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  fdInterestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Date | string | null
+  fdTenureMonths?: number | null
+  fdCompounding?: $Enums.FdCompounding | null
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutAccountInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedCreateNestedManyWithoutAccountInput
   transfersFrom?: Prisma.TransferUncheckedCreateNestedManyWithoutFromAccountInput
@@ -350,6 +414,10 @@ export type AccountUpdateInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fdInterestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fdTenureMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fdCompounding?: Prisma.NullableEnumFdCompoundingFieldUpdateOperationsInput | $Enums.FdCompounding | null
   transactions?: Prisma.TransactionUpdateManyWithoutAccountNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUpdateManyWithoutAccountNestedInput
   transfersFrom?: Prisma.TransferUpdateManyWithoutFromAccountNestedInput
@@ -366,6 +434,10 @@ export type AccountUncheckedUpdateInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fdInterestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fdTenureMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fdCompounding?: Prisma.NullableEnumFdCompoundingFieldUpdateOperationsInput | $Enums.FdCompounding | null
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutAccountNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedUpdateManyWithoutAccountNestedInput
   transfersFrom?: Prisma.TransferUncheckedUpdateManyWithoutFromAccountNestedInput
@@ -381,6 +453,10 @@ export type AccountCreateManyInput = {
   isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  fdInterestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Date | string | null
+  fdTenureMonths?: number | null
+  fdCompounding?: $Enums.FdCompounding | null
 }
 
 export type AccountUpdateManyMutationInput = {
@@ -391,6 +467,10 @@ export type AccountUpdateManyMutationInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fdInterestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fdTenureMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fdCompounding?: Prisma.NullableEnumFdCompoundingFieldUpdateOperationsInput | $Enums.FdCompounding | null
 }
 
 export type AccountUncheckedUpdateManyInput = {
@@ -402,6 +482,10 @@ export type AccountUncheckedUpdateManyInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fdInterestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fdTenureMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fdCompounding?: Prisma.NullableEnumFdCompoundingFieldUpdateOperationsInput | $Enums.FdCompounding | null
 }
 
 export type AccountListRelationFilter = {
@@ -423,10 +507,16 @@ export type AccountCountOrderByAggregateInput = {
   isArchived?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  fdInterestRate?: Prisma.SortOrder
+  fdStartDate?: Prisma.SortOrder
+  fdTenureMonths?: Prisma.SortOrder
+  fdCompounding?: Prisma.SortOrder
 }
 
 export type AccountAvgOrderByAggregateInput = {
   openingBalance?: Prisma.SortOrder
+  fdInterestRate?: Prisma.SortOrder
+  fdTenureMonths?: Prisma.SortOrder
 }
 
 export type AccountMaxOrderByAggregateInput = {
@@ -438,6 +528,10 @@ export type AccountMaxOrderByAggregateInput = {
   isArchived?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  fdInterestRate?: Prisma.SortOrder
+  fdStartDate?: Prisma.SortOrder
+  fdTenureMonths?: Prisma.SortOrder
+  fdCompounding?: Prisma.SortOrder
 }
 
 export type AccountMinOrderByAggregateInput = {
@@ -449,10 +543,16 @@ export type AccountMinOrderByAggregateInput = {
   isArchived?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  fdInterestRate?: Prisma.SortOrder
+  fdStartDate?: Prisma.SortOrder
+  fdTenureMonths?: Prisma.SortOrder
+  fdCompounding?: Prisma.SortOrder
 }
 
 export type AccountSumOrderByAggregateInput = {
   openingBalance?: Prisma.SortOrder
+  fdInterestRate?: Prisma.SortOrder
+  fdTenureMonths?: Prisma.SortOrder
 }
 
 export type AccountScalarRelationFilter = {
@@ -512,6 +612,26 @@ export type DecimalFieldUpdateOperationsInput = {
   decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
   multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type NullableEnumFdCompoundingFieldUpdateOperationsInput = {
+  set?: $Enums.FdCompounding | null
 }
 
 export type AccountCreateNestedOneWithoutTransactionsInput = {
@@ -578,6 +698,10 @@ export type AccountCreateWithoutUserInput = {
   isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  fdInterestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Date | string | null
+  fdTenureMonths?: number | null
+  fdCompounding?: $Enums.FdCompounding | null
   transactions?: Prisma.TransactionCreateNestedManyWithoutAccountInput
   recurringTransactions?: Prisma.RecurringTransactionCreateNestedManyWithoutAccountInput
   transfersFrom?: Prisma.TransferCreateNestedManyWithoutFromAccountInput
@@ -592,6 +716,10 @@ export type AccountUncheckedCreateWithoutUserInput = {
   isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  fdInterestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Date | string | null
+  fdTenureMonths?: number | null
+  fdCompounding?: $Enums.FdCompounding | null
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutAccountInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedCreateNestedManyWithoutAccountInput
   transfersFrom?: Prisma.TransferUncheckedCreateNestedManyWithoutFromAccountInput
@@ -636,6 +764,10 @@ export type AccountScalarWhereInput = {
   isArchived?: Prisma.BoolFilter<"Account"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Account"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Account"> | Date | string
+  fdInterestRate?: Prisma.DecimalNullableFilter<"Account"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
+  fdTenureMonths?: Prisma.IntNullableFilter<"Account"> | number | null
+  fdCompounding?: Prisma.EnumFdCompoundingNullableFilter<"Account"> | $Enums.FdCompounding | null
 }
 
 export type AccountCreateWithoutTransactionsInput = {
@@ -646,6 +778,10 @@ export type AccountCreateWithoutTransactionsInput = {
   isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  fdInterestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Date | string | null
+  fdTenureMonths?: number | null
+  fdCompounding?: $Enums.FdCompounding | null
   recurringTransactions?: Prisma.RecurringTransactionCreateNestedManyWithoutAccountInput
   transfersFrom?: Prisma.TransferCreateNestedManyWithoutFromAccountInput
   transfersTo?: Prisma.TransferCreateNestedManyWithoutToAccountInput
@@ -661,6 +797,10 @@ export type AccountUncheckedCreateWithoutTransactionsInput = {
   isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  fdInterestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Date | string | null
+  fdTenureMonths?: number | null
+  fdCompounding?: $Enums.FdCompounding | null
   recurringTransactions?: Prisma.RecurringTransactionUncheckedCreateNestedManyWithoutAccountInput
   transfersFrom?: Prisma.TransferUncheckedCreateNestedManyWithoutFromAccountInput
   transfersTo?: Prisma.TransferUncheckedCreateNestedManyWithoutToAccountInput
@@ -690,6 +830,10 @@ export type AccountUpdateWithoutTransactionsInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fdInterestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fdTenureMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fdCompounding?: Prisma.NullableEnumFdCompoundingFieldUpdateOperationsInput | $Enums.FdCompounding | null
   recurringTransactions?: Prisma.RecurringTransactionUpdateManyWithoutAccountNestedInput
   transfersFrom?: Prisma.TransferUpdateManyWithoutFromAccountNestedInput
   transfersTo?: Prisma.TransferUpdateManyWithoutToAccountNestedInput
@@ -705,6 +849,10 @@ export type AccountUncheckedUpdateWithoutTransactionsInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fdInterestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fdTenureMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fdCompounding?: Prisma.NullableEnumFdCompoundingFieldUpdateOperationsInput | $Enums.FdCompounding | null
   recurringTransactions?: Prisma.RecurringTransactionUncheckedUpdateManyWithoutAccountNestedInput
   transfersFrom?: Prisma.TransferUncheckedUpdateManyWithoutFromAccountNestedInput
   transfersTo?: Prisma.TransferUncheckedUpdateManyWithoutToAccountNestedInput
@@ -718,6 +866,10 @@ export type AccountCreateWithoutTransfersFromInput = {
   isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  fdInterestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Date | string | null
+  fdTenureMonths?: number | null
+  fdCompounding?: $Enums.FdCompounding | null
   transactions?: Prisma.TransactionCreateNestedManyWithoutAccountInput
   recurringTransactions?: Prisma.RecurringTransactionCreateNestedManyWithoutAccountInput
   transfersTo?: Prisma.TransferCreateNestedManyWithoutToAccountInput
@@ -733,6 +885,10 @@ export type AccountUncheckedCreateWithoutTransfersFromInput = {
   isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  fdInterestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Date | string | null
+  fdTenureMonths?: number | null
+  fdCompounding?: $Enums.FdCompounding | null
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutAccountInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedCreateNestedManyWithoutAccountInput
   transfersTo?: Prisma.TransferUncheckedCreateNestedManyWithoutToAccountInput
@@ -751,6 +907,10 @@ export type AccountCreateWithoutTransfersToInput = {
   isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  fdInterestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Date | string | null
+  fdTenureMonths?: number | null
+  fdCompounding?: $Enums.FdCompounding | null
   transactions?: Prisma.TransactionCreateNestedManyWithoutAccountInput
   recurringTransactions?: Prisma.RecurringTransactionCreateNestedManyWithoutAccountInput
   transfersFrom?: Prisma.TransferCreateNestedManyWithoutFromAccountInput
@@ -766,6 +926,10 @@ export type AccountUncheckedCreateWithoutTransfersToInput = {
   isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  fdInterestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Date | string | null
+  fdTenureMonths?: number | null
+  fdCompounding?: $Enums.FdCompounding | null
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutAccountInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedCreateNestedManyWithoutAccountInput
   transfersFrom?: Prisma.TransferUncheckedCreateNestedManyWithoutFromAccountInput
@@ -795,6 +959,10 @@ export type AccountUpdateWithoutTransfersFromInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fdInterestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fdTenureMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fdCompounding?: Prisma.NullableEnumFdCompoundingFieldUpdateOperationsInput | $Enums.FdCompounding | null
   transactions?: Prisma.TransactionUpdateManyWithoutAccountNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUpdateManyWithoutAccountNestedInput
   transfersTo?: Prisma.TransferUpdateManyWithoutToAccountNestedInput
@@ -810,6 +978,10 @@ export type AccountUncheckedUpdateWithoutTransfersFromInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fdInterestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fdTenureMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fdCompounding?: Prisma.NullableEnumFdCompoundingFieldUpdateOperationsInput | $Enums.FdCompounding | null
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutAccountNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedUpdateManyWithoutAccountNestedInput
   transfersTo?: Prisma.TransferUncheckedUpdateManyWithoutToAccountNestedInput
@@ -834,6 +1006,10 @@ export type AccountUpdateWithoutTransfersToInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fdInterestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fdTenureMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fdCompounding?: Prisma.NullableEnumFdCompoundingFieldUpdateOperationsInput | $Enums.FdCompounding | null
   transactions?: Prisma.TransactionUpdateManyWithoutAccountNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUpdateManyWithoutAccountNestedInput
   transfersFrom?: Prisma.TransferUpdateManyWithoutFromAccountNestedInput
@@ -849,6 +1025,10 @@ export type AccountUncheckedUpdateWithoutTransfersToInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fdInterestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fdTenureMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fdCompounding?: Prisma.NullableEnumFdCompoundingFieldUpdateOperationsInput | $Enums.FdCompounding | null
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutAccountNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedUpdateManyWithoutAccountNestedInput
   transfersFrom?: Prisma.TransferUncheckedUpdateManyWithoutFromAccountNestedInput
@@ -862,6 +1042,10 @@ export type AccountCreateWithoutRecurringTransactionsInput = {
   isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  fdInterestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Date | string | null
+  fdTenureMonths?: number | null
+  fdCompounding?: $Enums.FdCompounding | null
   transactions?: Prisma.TransactionCreateNestedManyWithoutAccountInput
   transfersFrom?: Prisma.TransferCreateNestedManyWithoutFromAccountInput
   transfersTo?: Prisma.TransferCreateNestedManyWithoutToAccountInput
@@ -877,6 +1061,10 @@ export type AccountUncheckedCreateWithoutRecurringTransactionsInput = {
   isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  fdInterestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Date | string | null
+  fdTenureMonths?: number | null
+  fdCompounding?: $Enums.FdCompounding | null
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutAccountInput
   transfersFrom?: Prisma.TransferUncheckedCreateNestedManyWithoutFromAccountInput
   transfersTo?: Prisma.TransferUncheckedCreateNestedManyWithoutToAccountInput
@@ -906,6 +1094,10 @@ export type AccountUpdateWithoutRecurringTransactionsInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fdInterestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fdTenureMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fdCompounding?: Prisma.NullableEnumFdCompoundingFieldUpdateOperationsInput | $Enums.FdCompounding | null
   transactions?: Prisma.TransactionUpdateManyWithoutAccountNestedInput
   transfersFrom?: Prisma.TransferUpdateManyWithoutFromAccountNestedInput
   transfersTo?: Prisma.TransferUpdateManyWithoutToAccountNestedInput
@@ -921,6 +1113,10 @@ export type AccountUncheckedUpdateWithoutRecurringTransactionsInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fdInterestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fdTenureMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fdCompounding?: Prisma.NullableEnumFdCompoundingFieldUpdateOperationsInput | $Enums.FdCompounding | null
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutAccountNestedInput
   transfersFrom?: Prisma.TransferUncheckedUpdateManyWithoutFromAccountNestedInput
   transfersTo?: Prisma.TransferUncheckedUpdateManyWithoutToAccountNestedInput
@@ -934,6 +1130,10 @@ export type AccountCreateManyUserInput = {
   isArchived?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  fdInterestRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Date | string | null
+  fdTenureMonths?: number | null
+  fdCompounding?: $Enums.FdCompounding | null
 }
 
 export type AccountUpdateWithoutUserInput = {
@@ -944,6 +1144,10 @@ export type AccountUpdateWithoutUserInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fdInterestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fdTenureMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fdCompounding?: Prisma.NullableEnumFdCompoundingFieldUpdateOperationsInput | $Enums.FdCompounding | null
   transactions?: Prisma.TransactionUpdateManyWithoutAccountNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUpdateManyWithoutAccountNestedInput
   transfersFrom?: Prisma.TransferUpdateManyWithoutFromAccountNestedInput
@@ -958,6 +1162,10 @@ export type AccountUncheckedUpdateWithoutUserInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fdInterestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fdTenureMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fdCompounding?: Prisma.NullableEnumFdCompoundingFieldUpdateOperationsInput | $Enums.FdCompounding | null
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutAccountNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedUpdateManyWithoutAccountNestedInput
   transfersFrom?: Prisma.TransferUncheckedUpdateManyWithoutFromAccountNestedInput
@@ -972,6 +1180,10 @@ export type AccountUncheckedUpdateManyWithoutUserInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fdInterestRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fdStartDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fdTenureMonths?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fdCompounding?: Prisma.NullableEnumFdCompoundingFieldUpdateOperationsInput | $Enums.FdCompounding | null
 }
 
 
@@ -1041,6 +1253,10 @@ export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   isArchived?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  fdInterestRate?: boolean
+  fdStartDate?: boolean
+  fdTenureMonths?: boolean
+  fdCompounding?: boolean
   transactions?: boolean | Prisma.Account$transactionsArgs<ExtArgs>
   recurringTransactions?: boolean | Prisma.Account$recurringTransactionsArgs<ExtArgs>
   transfersFrom?: boolean | Prisma.Account$transfersFromArgs<ExtArgs>
@@ -1058,6 +1274,10 @@ export type AccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   isArchived?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  fdInterestRate?: boolean
+  fdStartDate?: boolean
+  fdTenureMonths?: boolean
+  fdCompounding?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["account"]>
 
@@ -1070,6 +1290,10 @@ export type AccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   isArchived?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  fdInterestRate?: boolean
+  fdStartDate?: boolean
+  fdTenureMonths?: boolean
+  fdCompounding?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["account"]>
 
@@ -1082,9 +1306,13 @@ export type AccountSelectScalar = {
   isArchived?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  fdInterestRate?: boolean
+  fdStartDate?: boolean
+  fdTenureMonths?: boolean
+  fdCompounding?: boolean
 }
 
-export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "type" | "openingBalance" | "isArchived" | "createdAt" | "updatedAt", ExtArgs["result"]["account"]>
+export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "type" | "openingBalance" | "isArchived" | "createdAt" | "updatedAt" | "fdInterestRate" | "fdStartDate" | "fdTenureMonths" | "fdCompounding", ExtArgs["result"]["account"]>
 export type AccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   transactions?: boolean | Prisma.Account$transactionsArgs<ExtArgs>
   recurringTransactions?: boolean | Prisma.Account$recurringTransactionsArgs<ExtArgs>
@@ -1118,6 +1346,10 @@ export type $AccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     isArchived: boolean
     createdAt: Date
     updatedAt: Date
+    fdInterestRate: runtime.Decimal | null
+    fdStartDate: Date | null
+    fdTenureMonths: number | null
+    fdCompounding: $Enums.FdCompounding | null
   }, ExtArgs["result"]["account"]>
   composites: {}
 }
@@ -1554,6 +1786,10 @@ export interface AccountFieldRefs {
   readonly isArchived: Prisma.FieldRef<"Account", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Account", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Account", 'DateTime'>
+  readonly fdInterestRate: Prisma.FieldRef<"Account", 'Decimal'>
+  readonly fdStartDate: Prisma.FieldRef<"Account", 'DateTime'>
+  readonly fdTenureMonths: Prisma.FieldRef<"Account", 'Int'>
+  readonly fdCompounding: Prisma.FieldRef<"Account", 'FdCompounding'>
 }
     
 

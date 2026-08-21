@@ -37,12 +37,14 @@
     "categoryNotFound": "Category not found",
     "insufficientBalance": "Insufficient account balance",
     "accountArchived": "Cannot create a transaction for an archived account",
+    "fdLocked": "Fixed Deposits are locked. Use bank or cash for spending.",
     "categoryArchived": "Cannot use an archived category",
     "invalidDateRange": "Start date cannot be later than end date"
   },
 
   "success": {
     "created": "Transaction created successfully",
+    "bulkCreated": "Transactions added successfully",
     "fetched": "Transactions fetched successfully",
     "updated": "Transaction updated successfully",
     "deleted": "Transaction deleted successfully"

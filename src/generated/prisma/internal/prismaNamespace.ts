@@ -1394,7 +1394,11 @@ export const AccountScalarFieldEnum = {
   openingBalance: 'openingBalance',
   isArchived: 'isArchived',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  fdInterestRate: 'fdInterestRate',
+  fdStartDate: 'fdStartDate',
+  fdTenureMonths: 'fdTenureMonths',
+  fdCompounding: 'fdCompounding'
 } as const
 
 export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
@@ -1629,6 +1633,34 @@ export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMo
 
 
 /**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'FdCompounding'
+ */
+export type EnumFdCompoundingFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FdCompounding'>
+    
+
+
+/**
+ * Reference to a field of type 'FdCompounding[]'
+ */
+export type ListEnumFdCompoundingFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FdCompounding[]'>
+    
+
+
+/**
  * Reference to a field of type 'CategoryType'
  */
 export type EnumCategoryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoryType'>
@@ -1681,20 +1713,6 @@ export type EnumOtpTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMo
  * Reference to a field of type 'OtpType[]'
  */
 export type ListEnumOtpTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OtpType[]'>
-    
-
-
-/**
- * Reference to a field of type 'Int'
- */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-/**
- * Reference to a field of type 'Int[]'
- */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 

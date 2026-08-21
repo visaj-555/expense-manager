@@ -3,6 +3,7 @@ import {
   NotFoundException,
   ForbiddenException,
   ConflictException,
+  BadRequestException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/common/database/prisma.service';
 import {
@@ -10,8 +11,13 @@ import {
   UpdateAccountDto,
   AccountQueryDto,
 } from './dto/payloads/account.dto';
-import { Prisma } from 'src/generated/prisma/client';
+import { AccountType, FdCompounding, Prisma } from 'src/generated/prisma/client';
 import { calculatePaginationMeta, getPaginationParams } from 'src/common/common.exports';
+import {
+  computeFixedDeposit,
+  toFdResponse,
+  type FdCompounding as FdCompoundingName,
+} from 'src/common/helpers/fixed-deposit';
 
 const ACCOUNT_SELECT = {
   id: true,
@@ -22,6 +28,10 @@ const ACCOUNT_SELECT = {
   isArchived: true,
   createdAt: true,
   updatedAt: true,
+  fdInterestRate: true,
+  fdStartDate: true,
+  fdTenureMonths: true,
+  fdCompounding: true,
 } satisfies Prisma.AccountSelect;
 
 const ACCOUNT_WITH_BALANCE_SELECT = {
@@ -59,21 +69,80 @@ function computeDelta(raw: RawAccountWithBalance): number {
   return txDelta - transfersOut + transfersIn;
 }
 
+function snapshotFd(raw: {
+  type: AccountType;
+  openingBalance: Prisma.Decimal | number;
+  fdInterestRate: Prisma.Decimal | number | null;
+  fdStartDate: Date | null;
+  fdTenureMonths: number | null;
+  fdCompounding: FdCompounding | null;
+}) {
+  if (raw.type !== AccountType.FIXED_DEPOSIT) return null;
+  if (
+    raw.fdInterestRate == null ||
+    !raw.fdStartDate ||
+    raw.fdTenureMonths == null
+  ) {
+    return null;
+  }
+
+  return computeFixedDeposit({
+    principal: Number(raw.openingBalance),
+    interestRate: Number(raw.fdInterestRate),
+    startDate: raw.fdStartDate,
+    tenureMonths: raw.fdTenureMonths,
+    compounding: (raw.fdCompounding ??
+      'QUARTERLY') as FdCompoundingName,
+  });
+}
+
 function formatAccount(raw: RawAccountWithBalance) {
   const delta = computeDelta(raw);
+  const fd = snapshotFd(raw);
   const {
     transactions: _transactions,
     transfersFrom: _transfersFrom,
     transfersTo: _transfersTo,
     _count,
     openingBalance,
+    fdInterestRate: _rate,
+    fdStartDate: _start,
+    fdTenureMonths: _tenure,
+    fdCompounding: _compounding,
     ...rest
   } = raw;
 
   return {
     ...rest,
-    currentBalance: Number(openingBalance) + delta,
+    currentBalance: fd ? fd.currentValue : Number(openingBalance) + delta,
     transactionCount: _count.transactions,
+    fd: fd ? toFdResponse(fd) : null,
+  };
+}
+
+function fdCreateData(dto: CreateAccountDto) {
+  if (dto.type !== AccountType.FIXED_DEPOSIT) {
+    return {
+      fdInterestRate: null,
+      fdStartDate: null,
+      fdTenureMonths: null,
+      fdCompounding: null,
+    };
+  }
+
+  if (
+    dto.interestRate == null ||
+    !dto.startDate ||
+    dto.tenureMonths == null
+  ) {
+    throw new BadRequestException('accounts.errors.fdDetailsRequired');
+  }
+
+  return {
+    fdInterestRate: dto.interestRate,
+    fdStartDate: new Date(dto.startDate),
+    fdTenureMonths: dto.tenureMonths,
+    fdCompounding: dto.compounding ?? FdCompounding.QUARTERLY,
   };
 }
 
@@ -87,8 +156,8 @@ export class AccountsService {
         userId,
         name: dto.name,
         type: dto.type,
-        // User enters live balance; stored as opening baseline (no txs yet).
         openingBalance: dto.currentBalance,
+        ...fdCreateData(dto),
       },
       select: ACCOUNT_WITH_BALANCE_SELECT,
     });
@@ -148,20 +217,52 @@ export class AccountsService {
   async update(userId: string, id: string, dto: UpdateAccountDto) {
     await this.assertOwnership(userId, id);
 
-    const { currentBalance, ...rest } = dto;
+    const existing = await this.prisma.account.findUnique({
+      where: { id },
+      select: ACCOUNT_WITH_BALANCE_SELECT,
+    });
+
+    if (!existing) throw new NotFoundException('accounts.errors.notFound');
+
+    const nextType = dto.type ?? existing.type;
+    const {
+      currentBalance,
+      interestRate,
+      startDate,
+      tenureMonths,
+      compounding,
+      ...rest
+    } = dto;
     const data: Prisma.AccountUpdateInput = { ...rest };
 
-    if (currentBalance !== undefined) {
-      const existing = await this.prisma.account.findUnique({
-        where: { id },
-        select: ACCOUNT_WITH_BALANCE_SELECT,
-      });
+    if (nextType === AccountType.FIXED_DEPOSIT) {
+      if (currentBalance !== undefined) {
+        data.openingBalance = currentBalance;
+      }
+      if (interestRate !== undefined) data.fdInterestRate = interestRate;
+      if (startDate !== undefined) data.fdStartDate = new Date(startDate);
+      if (tenureMonths !== undefined) data.fdTenureMonths = tenureMonths;
+      if (compounding !== undefined) data.fdCompounding = compounding;
 
-      if (!existing) throw new NotFoundException('accounts.errors.notFound');
-
-      // Keep computed currentBalance equal to what the user entered.
-      const delta = computeDelta(existing);
-      data.openingBalance = currentBalance - delta;
+      const mergedRate = interestRate ?? existing.fdInterestRate;
+      const mergedStart = startDate
+        ? new Date(startDate)
+        : existing.fdStartDate;
+      const mergedTenure = tenureMonths ?? existing.fdTenureMonths;
+      if (mergedRate == null || !mergedStart || mergedTenure == null) {
+        throw new BadRequestException('accounts.errors.fdDetailsRequired');
+      }
+    } else {
+      if (dto.type && dto.type !== AccountType.FIXED_DEPOSIT) {
+        data.fdInterestRate = null;
+        data.fdStartDate = null;
+        data.fdTenureMonths = null;
+        data.fdCompounding = null;
+      }
+      if (currentBalance !== undefined) {
+        const delta = computeDelta(existing);
+        data.openingBalance = currentBalance - delta;
+      }
     }
 
     const raw = await this.prisma.account.update({

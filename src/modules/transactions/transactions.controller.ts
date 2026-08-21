@@ -23,7 +23,7 @@ import { JwtAuthGuard } from '../auth/guards/auth.guard';
 import { GetUser } from 'src/common/decorators/get-user';
 import { ApiResponse } from 'src/common/common.exports';
 import { TransactionResponseDto } from './dto/transaction.response.dto';
-import { CreateTransactionDto, TransactionQueryDto, UpdateTransactionDto } from './dto/transaction.payload.dto';
+import { CreateTransactionDto, TransactionQueryDto, UpdateTransactionDto, BulkCreateTransactionsDto } from './dto/transaction.payload.dto';
 
 @ApiTags('Transactions')
 @ApiBearerAuth('JWT-auth')
@@ -42,6 +42,23 @@ export class TransactionsController {
   ) {
     const transaction = await this.transactionsService.create(userId, dto);
     return ApiResponse.created(transaction, i18n.t('transactions.success.created'));
+  }
+
+  @Post('bulk')
+  @ApiOperation({ summary: 'Create many transactions at once (max 50)' })
+  async createBulk(
+    @GetUser('userId') userId: string,
+    @Body() dto: BulkCreateTransactionsDto,
+    @I18n() i18n: I18nContext,
+  ) {
+    const transactions = await this.transactionsService.createMany(
+      userId,
+      dto.transactions,
+    );
+    return ApiResponse.created(
+      { count: transactions.length, data: transactions },
+      i18n.t('transactions.success.bulkCreated'),
+    );
   }
 
   @Get()

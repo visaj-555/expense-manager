@@ -7,6 +7,9 @@ export class DashboardOverviewDto {
   @ApiProperty({ description: 'Sum of WALLET (cash) account balances' })
   currentWalletBalance: number;
 
+  @ApiProperty({ description: 'Sum of live Fixed Deposit values (principal + accrued interest)' })
+  currentFdBalance: number;
+
   @ApiProperty()
   monthlyIncome: number;
 

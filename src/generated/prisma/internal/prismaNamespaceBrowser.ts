@@ -133,7 +133,11 @@ export const AccountScalarFieldEnum = {
   openingBalance: 'openingBalance',
   isArchived: 'isArchived',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  fdInterestRate: 'fdInterestRate',
+  fdStartDate: 'fdStartDate',
+  fdTenureMonths: 'fdTenureMonths',
+  fdCompounding: 'fdCompounding'
 } as const
 
 export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/common/database/prisma.service';
 import { DashboardResponseDto } from './dto/dashboard.response.dto';
 import { AutomationsService } from '../automations/automations.service';
+import { computeFixedDeposit } from 'src/common/helpers/fixed-deposit';
 
 @Injectable()
 export class DashboardService {
@@ -159,6 +160,8 @@ export class DashboardService {
 
     let currentBalance = 0;
     let currentWalletBalance = 0;
+    let currentFdBalance = 0;
+    const maturedFdNames: string[] = [];
 
     const accountDistribution = accounts.map((acc) => {
       const txDelta = acc.transactions.reduce((sum, tx) => {
@@ -173,14 +176,34 @@ export class DashboardService {
         (sum, tr) => sum + Number(tr.amount),
         0,
       );
-      const balance =
+      const ledgerBalance =
         Number(acc.openingBalance) + txDelta - transfersOut + transfersIn;
+
+      const fd =
+        acc.type === 'FIXED_DEPOSIT' &&
+        acc.fdInterestRate != null &&
+        acc.fdStartDate &&
+        acc.fdTenureMonths != null
+          ? computeFixedDeposit({
+              principal: Number(acc.openingBalance),
+              interestRate: Number(acc.fdInterestRate),
+              startDate: acc.fdStartDate,
+              tenureMonths: acc.fdTenureMonths,
+              compounding: acc.fdCompounding ?? 'QUARTERLY',
+            })
+          : null;
+
+      const balance = fd ? fd.currentValue : ledgerBalance;
 
       if (acc.type === 'BANK') {
         currentBalance += balance;
       } else if (acc.type === 'WALLET') {
-        // WALLET = cash in hand
         currentWalletBalance += balance;
+      } else if (acc.type === 'FIXED_DEPOSIT') {
+        currentFdBalance += balance;
+        if (fd?.isMatured) {
+          maturedFdNames.push(acc.name);
+        }
       }
 
       return { account: acc.name, balance };
@@ -198,6 +221,7 @@ export class DashboardService {
     const overview = {
       currentBalance,
       currentWalletBalance,
+      currentFdBalance,
       monthlyIncome,
       monthlyExpense,
       monthlySavings,
@@ -344,6 +368,12 @@ export class DashboardService {
     if (savingsRate > 20) {
       insights.push(
         `Excellent savings rate this month at ${Math.round(savingsRate)}%.`,
+      );
+    }
+
+    if (maturedFdNames.length > 0) {
+      insights.push(
+        `${maturedFdNames.join(', ')} matured. Move the amount to bank or cash when you receive it.`,
       );
     }
 

@@ -254,7 +254,7 @@ export class AutomationsService {
   private async assertAccount(userId: string, accountId: string) {
     const account = await this.prisma.account.findUnique({
       where: { id: accountId },
-      select: { userId: true, isArchived: true },
+      select: { userId: true, isArchived: true, type: true },
     });
     if (!account) throw new NotFoundException('automations.errors.accountNotFound');
     if (account.userId !== userId) {
@@ -262,6 +262,9 @@ export class AutomationsService {
     }
     if (account.isArchived) {
       throw new UnprocessableEntityException('automations.errors.accountArchived');
+    }
+    if (account.type === 'FIXED_DEPOSIT') {
+      throw new UnprocessableEntityException('automations.errors.fdLocked');
     }
   }
 

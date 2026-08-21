@@ -12,6 +12,7 @@
     "accountNotFound": "Account not found",
     "categoryNotFound": "Category not found",
     "accountArchived": "Cannot automate an archived account",
+    "fdLocked": "Fixed Deposits cannot run automations",
     "categoryArchived": "Cannot use an archived category",
     "notDue": "This deduction is not due yet"
   }

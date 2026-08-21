@@ -1,16 +1,20 @@
 import { ApiProperty, ApiPropertyOptional, PartialType } from '@nestjs/swagger';
 import {
+  ArrayMaxSize,
+  ArrayMinSize,
+  IsArray,
+  IsBoolean,
+  IsDateString,
   IsEnum,
   IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
   IsUUID,
-  IsBoolean,
-  IsDateString,
-  Min,
   MaxLength,
+  Min,
   NotEquals,
+  ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
@@ -33,6 +37,7 @@ export class CreateTransactionDto {
   })
   type: TransactionType;
 
+  @Type(() => Number)
   @IsNumber(
     { maxDecimalPlaces: 2 },
     {
@@ -81,7 +86,7 @@ export class CreateTransactionDto {
   @ApiPropertyOptional({
     example: true,
     description:
-      'Keep today\'s account snapshot unchanged (catch-up). Omit to auto-preserve past/future dates.',
+      'Catch-up only: keep today\'s cash/bank snapshot unchanged for past/future dates. Ignored for today — live spends always update the selected account. Set false to also update the snapshot on a catch-up date.',
   })
   @IsOptional()
   @IsBoolean()
@@ -94,6 +99,16 @@ export class CreateTransactionDto {
 // (would silently affect balance computations and reports).
 // If a user made the wrong type, they should delete and re-create.
 export class UpdateTransactionDto extends PartialType(CreateTransactionDto) { }
+
+export class BulkCreateTransactionsDto {
+  @ApiProperty({ type: [CreateTransactionDto] })
+  @IsArray()
+  @ArrayMinSize(1)
+  @ArrayMaxSize(50)
+  @ValidateNested({ each: true })
+  @Type(() => CreateTransactionDto)
+  transactions: CreateTransactionDto[];
+}
 
 // ─── Query / Filters ──────────────────────────────────────────────────────────
 

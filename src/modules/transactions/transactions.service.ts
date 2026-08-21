@@ -101,6 +101,14 @@ export class TransactionsService {
     return formatTransaction(raw);
   }
 
+  async createMany(userId: string, items: CreateTransactionDto[]) {
+    const created: ReturnType<typeof formatTransaction>[] = []
+    for (const item of items) {
+      created.push(await this.create(userId, item));
+    }
+    return created;
+  }
+
   // ── List ────────────────────────────────────────────────────────────────────
 
   async findAll(userId: string, query: TransactionQueryDto) {
@@ -224,9 +232,10 @@ export class TransactionsService {
     if (dto.accountId) affectedIds.add(dto.accountId);
 
     const preserve =
-      dto.preserveCurrentBalance ??
-      (shouldPreserveCurrentBalance(existing.transactionDate) ||
-        shouldPreserveCurrentBalance(nextDate));
+      shouldPreserveCurrentBalance(
+        existing.transactionDate,
+        dto.preserveCurrentBalance,
+      ) || shouldPreserveCurrentBalance(nextDate, dto.preserveCurrentBalance);
 
     const snapshots = preserve
       ? await this.snapshotCurrents([...affectedIds])
@@ -317,7 +326,7 @@ export class TransactionsService {
   private async assertAccountOwnership(userId: string, accountId: string) {
     const account = await this.prisma.account.findUnique({
       where: { id: accountId },
-      select: { id: true, userId: true, isArchived: true },
+      select: { id: true, userId: true, isArchived: true, type: true },
     });
 
     if (!account) {
@@ -332,6 +341,10 @@ export class TransactionsService {
       throw new UnprocessableEntityException(
         'transactions.errors.accountArchived',
       );
+    }
+
+    if (account.type === 'FIXED_DEPOSIT') {
+      throw new UnprocessableEntityException('transactions.errors.fdLocked');
     }
   }
 

@@ -27,8 +27,9 @@ export function isLiveToday(
 }
 
 /**
- * Today's cash/bank is a snapshot. Catch-up (past or future dates) must not
- * rewrite that number — leftover / debt already lived in real life.
+ * Live money (today) always updates cash/bank.
+ * Catch-up (past or future) must not rewrite today's snapshot — leftover / debt
+ * already lived in real life — unless the client forces a live update.
  */
 export function shouldPreserveCurrentBalance(
   date: Date,
@@ -36,8 +37,9 @@ export function shouldPreserveCurrentBalance(
   timeZone = DEFAULT_TIMEZONE,
   now = new Date(),
 ): boolean {
-  if (override !== undefined) return override;
-  return !isLiveToday(date, timeZone, now);
+  if (override === false) return false;
+  if (isLiveToday(date, timeZone, now)) return false;
+  return true;
 }
 
 /** @deprecated Use shouldPreserveCurrentBalance — also true for future dates. */

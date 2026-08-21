@@ -9,6 +9,7 @@
     "notFound": "Transfer not found",
     "forbidden": "You do not have permission to access this transfer",
     "sameAccount": "Source and destination accounts cannot be the same",
-    "invalidAccount": "Invalid source or destination account"
+    "invalidAccount": "Invalid source or destination account",
+    "fdLocked": "Fixed Deposits cannot be used in transfers. Break or mature the FD first."
   }
 }

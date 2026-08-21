@@ -3,6 +3,7 @@ import {
   ForbiddenException,
   Injectable,
   NotFoundException,
+  UnprocessableEntityException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/common/database/prisma.service';
 import { CreateTransferDto, TransferQueryDto, UpdateTransferDto } from './dto/payloads/transfer.dto';
@@ -51,6 +52,13 @@ export class TransfersService {
 
     if (fromAccount.userId !== userId || toAccount.userId !== userId) {
       throw new ForbiddenException('transfer.errors.forbidden');
+    }
+
+    if (
+      fromAccount.type === 'FIXED_DEPOSIT' ||
+      toAccount.type === 'FIXED_DEPOSIT'
+    ) {
+      throw new UnprocessableEntityException('transfer.errors.fdLocked');
     }
 
     const raw = await this.prisma.$transaction(async (tx) => {

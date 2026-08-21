@@ -20,10 +20,20 @@ export type Role = (typeof Role)[keyof typeof Role]
 export const AccountType = {
   BANK: 'BANK',
   SAVINGS: 'SAVINGS',
-  WALLET: 'WALLET'
+  WALLET: 'WALLET',
+  FIXED_DEPOSIT: 'FIXED_DEPOSIT'
 } as const
 
 export type AccountType = (typeof AccountType)[keyof typeof AccountType]
+
+
+export const FdCompounding = {
+  MONTHLY: 'MONTHLY',
+  QUARTERLY: 'QUARTERLY',
+  YEARLY: 'YEARLY'
+} as const
+
+export type FdCompounding = (typeof FdCompounding)[keyof typeof FdCompounding]
 
 
 export const CategoryType = {

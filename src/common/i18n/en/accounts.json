@@ -2,12 +2,14 @@
   "errors": {
     "notFound": "Account not found",
     "forbidden": "You do not have access to this account",
-    "hasTransactions": "Cannot delete an account that has transactions. Archive it instead."
+    "hasTransactions": "Cannot delete an account that has transactions. Archive it instead.",
+    "fdDetailsRequired": "Fixed Deposit needs principal, start date, interest rate, and tenure.",
+    "fdLocked": "Fixed Deposits are locked. Record spends on bank or cash instead."
   },
   "validation": {
     "name_string": "Account name must be a string",
     "name_required": "Account name is required",
-    "invalid_type": "Account type must be Bank, Savings, or Cash",
+    "invalid_type": "Account type must be Bank, Savings, Cash, or Fixed Deposit",
     "current_balance_required": "Current balance is required",
     "current_balance_number": "Current balance must be a valid number",
     "current_balance_min": "Current balance cannot be negative"

@@ -102,9 +102,16 @@ export class TransactionsService {
   }
 
   async createMany(userId: string, items: CreateTransactionDto[]) {
-    const created: ReturnType<typeof formatTransaction>[] = []
+    const created: ReturnType<typeof formatTransaction>[] = [];
     for (const item of items) {
-      created.push(await this.create(userId, item));
+      // Bulk is an intentional ledger write: update Cash/Bank unless the client
+      // explicitly opts into catch-up preserve (same toggle as single create).
+      created.push(
+        await this.create(userId, {
+          ...item,
+          preserveCurrentBalance: item.preserveCurrentBalance ?? false,
+        }),
+      );
     }
     return created;
   }

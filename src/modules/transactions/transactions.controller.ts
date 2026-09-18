@@ -45,7 +45,11 @@ export class TransactionsController {
   }
 
   @Post('bulk')
-  @ApiOperation({ summary: 'Create many transactions at once (max 50)' })
+  @ApiOperation({
+    summary: 'Create many transactions at once (max 50)',
+    description:
+      'Updates Cash/Bank balances by default. Set preserveCurrentBalance: true on an item to keep today\'s snapshot for catch-up dates.',
+  })
   async createBulk(
     @GetUser('userId') userId: string,
     @Body() dto: BulkCreateTransactionsDto,

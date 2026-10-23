@@ -200,10 +200,13 @@ model Transfer {
   note          String?
   transferDate  DateTime
   createdAt     DateTime @default(now())
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fromAccount   Account  @relation("TransferFrom", fields: [fromAccountId], references: [id], onDelete: Restrict)
+  toAccount     Account  @relation("TransferTo", fields: [toAccountId], references: [id], onDelete: Restrict)
 
-  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  fromAccount Account @relation("TransferFrom", fields: [fromAccountId], references: [id], onDelete: Restrict)
-  toAccount   Account @relation("TransferTo", fields: [toAccountId], references: [id], onDelete: Restrict)
+  @@index([userId, transferDate])
+  @@index([fromAccountId])
+  @@index([toAccountId])
 }
 
 model Goal {

@@ -45,3 +45,49 @@ export class TopExpenseDto {
   @ApiProperty()
   amount: number;
 }
+
+export class DeepInsightItemDto {
+  @ApiProperty()
+  tone: 'positive' | 'warning' | 'neutral';
+
+  @ApiProperty()
+  text: string;
+}
+
+export class DeepInsightsResponseDto {
+  @ApiProperty()
+  period: Record<string, unknown>;
+
+  @ApiProperty()
+  summary: Record<string, unknown>;
+
+  @ApiProperty()
+  previous: Record<string, unknown>;
+
+  @ApiProperty({ type: [Object] })
+  categories: unknown[];
+
+  @ApiProperty({ type: [Object] })
+  incomeSources: unknown[];
+
+  @ApiProperty({ type: [Object] })
+  trend: unknown[];
+
+  @ApiProperty({ type: [Object] })
+  daily: unknown[];
+
+  @ApiProperty({ type: [Object] })
+  weekday: unknown[];
+
+  @ApiProperty({ type: [Object] })
+  accounts: unknown[];
+
+  @ApiProperty({ type: [Object] })
+  topExpenses: unknown[];
+
+  @ApiProperty()
+  transfers: Record<string, unknown>;
+
+  @ApiProperty({ type: [DeepInsightItemDto] })
+  insights: DeepInsightItemDto[];
+}

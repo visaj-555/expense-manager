@@ -11,16 +11,16 @@ import {
   getPaginationParams,
 } from 'src/common/common.exports';
 import {
-  getAccountCurrentBalance,
-  isLiveToday,
-  pinAccountCurrentBalance,
-} from 'src/common/helpers/account-ledger';
-import {
   CreateAutomationDto,
   AutomationQueryDto,
   UpdateAutomationDto,
 } from './dto/payloads/automation.dto';
-import { addFrequency, todayUtc, toUtcDay } from './automation-dates';
+import {
+  addFrequency,
+  currentDueDate,
+  todayUtc,
+  toUtcDay,
+} from './automation-dates';
 
 const AUTOMATION_SELECT = {
   id: true,
@@ -65,13 +65,7 @@ export class AutomationsService {
 
     const frequency = dto.frequency ?? 'MONTHLY';
     const startDate = toUtcDay(dto.startDate);
-    const today = todayUtc();
-    let nextRunDate = startDate;
-    let guard = 0;
-    while (nextRunDate < today && guard < 36) {
-      nextRunDate = addFrequency(nextRunDate, frequency);
-      guard += 1;
-    }
+    const nextRunDate = currentDueDate(startDate, frequency, todayUtc());
 
     const raw = await this.prisma.recurringTransaction.create({
       data: {
@@ -149,7 +143,13 @@ export class AutomationsService {
       select: AUTOMATION_SELECT,
     });
 
-    return formatAutomation(raw);
+    await this.processDue(userId);
+    return formatAutomation(
+      (await this.prisma.recurringTransaction.findUnique({
+        where: { id },
+        select: AUTOMATION_SELECT,
+      })) ?? raw,
+    );
   }
 
   async remove(userId: string, id: string) {
@@ -171,18 +171,34 @@ export class AutomationsService {
   }
 
   async processDue(userId: string) {
-    const due = await this.prisma.recurringTransaction.findMany({
-      where: {
-        userId,
-        isActive: true,
-        nextRunDate: { lte: todayUtc() },
-      },
+    const today = todayUtc();
+    const active = await this.prisma.recurringTransaction.findMany({
+      where: { userId, isActive: true },
       select: AUTOMATION_SELECT,
     });
 
     let posted = 0;
-    for (const row of due) {
-      posted += await this.processOne(row);
+    for (const row of active) {
+      const nextRun = toUtcDay(row.nextRunDate);
+      const dueDate = currentDueDate(row.startDate, row.frequency, today);
+      const lastProcessed = row.lastProcessed
+        ? toUtcDay(row.lastProcessed)
+        : null;
+
+      // Create used to skip an already-due cycle (e.g. rent on the 1st,
+      // created on the 23rd) and park nextRunDate in the following month.
+      if (
+        nextRun > today &&
+        dueDate <= today &&
+        (!lastProcessed || lastProcessed < dueDate)
+      ) {
+        posted += await this.processOne({ ...row, nextRunDate: dueDate });
+        continue;
+      }
+
+      if (nextRun <= today) {
+        posted += await this.processOne(row);
+      }
     }
     return posted;
   }
@@ -193,50 +209,50 @@ export class AutomationsService {
     const today = todayUtc();
     let nextRun = toUtcDay(row.nextRunDate);
     const endDate = row.endDate ? toUtcDay(row.endDate) : null;
-    let posted = 0;
+    const anchorDay = toUtcDay(row.startDate).getUTCDate();
+    const occurrences: Date[] = [];
 
     for (let i = 0; i < 36 && nextRun <= today; i += 1) {
       if (endDate && nextRun > endDate) break;
+      occurrences.push(nextRun);
+      nextRun = addFrequency(nextRun, row.frequency, anchorDay);
+    }
 
-      const amount = Number(row.amount);
-      const preserve = !isLiveToday(nextRun);
-      const snapshot = preserve
-        ? await getAccountCurrentBalance(this.prisma, row.accountId)
-        : null;
-
-      await this.prisma.transaction.create({
-        data: {
-          userId: row.userId,
-          accountId: row.accountId,
-          categoryId: row.categoryId,
-          type: row.type === 'TRANSFER' ? 'EXPENSE' : row.type,
-          amount,
-          title: row.title,
-          notes: row.notes ?? 'Automated deduction',
-          transactionDate: nextRun,
-          paymentMethod: row.paymentMethod,
-        },
-      });
-
-      if (snapshot != null) {
-        await pinAccountCurrentBalance(this.prisma, row.accountId, snapshot);
-      }
-
-      posted += 1;
-      nextRun = addFrequency(nextRun, row.frequency);
+    if (occurrences.length === 0 && !(endDate && nextRun > endDate)) {
+      return 0;
     }
 
     const ended = Boolean(endDate && nextRun > endDate);
-    await this.prisma.recurringTransaction.update({
-      where: { id: row.id },
-      data: {
-        lastProcessed: posted > 0 ? today : row.lastProcessed,
-        nextRunDate: nextRun,
-        isActive: ended ? false : row.isActive,
-      },
+    const amount = Number(row.amount);
+
+    await this.prisma.$transaction(async (tx) => {
+      for (const when of occurrences) {
+        await tx.transaction.create({
+          data: {
+            userId: row.userId,
+            accountId: row.accountId,
+            categoryId: row.categoryId,
+            type: row.type === 'TRANSFER' ? 'EXPENSE' : row.type,
+            amount,
+            title: row.title,
+            notes: row.notes ?? 'Automated deduction',
+            transactionDate: when,
+            paymentMethod: row.paymentMethod,
+          },
+        });
+      }
+
+      await tx.recurringTransaction.update({
+        where: { id: row.id },
+        data: {
+          lastProcessed: occurrences.length > 0 ? today : row.lastProcessed,
+          nextRunDate: nextRun,
+          isActive: ended ? false : row.isActive,
+        },
+      });
     });
 
-    return posted;
+    return occurrences.length;
   }
 
   private async getOwned(userId: string, id: string) {

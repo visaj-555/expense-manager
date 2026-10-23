@@ -156,9 +156,9 @@ export class TransactionsService {
 
     const where: Prisma.TransactionWhereInput = {
       userId,
+      type: type && type !== 'TRANSFER' ? type : { in: ['INCOME', 'EXPENSE'] },
       ...(accountId && { accountId }),
       ...(categoryId && { categoryId }),
-      ...(type && { type }),
       ...(paymentMethod && { paymentMethod }),
       ...(search && { title: { contains: search, mode: 'insensitive' } }),
       ...(startDate || endDate

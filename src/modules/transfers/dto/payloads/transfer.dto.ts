@@ -44,6 +44,21 @@ export class CreateTransferDto {
 export class UpdateTransferDto extends PartialType(CreateTransferDto) {}
 
 export class TransferQueryDto extends PaginationDto {
+  @ApiPropertyOptional({ description: 'Filter by source account' })
+  @IsOptional()
+  @IsUUID()
+  fromAccountId?: string;
+
+  @ApiPropertyOptional({ description: 'Filter by destination account' })
+  @IsOptional()
+  @IsUUID()
+  toAccountId?: string;
+
+  @ApiPropertyOptional({ description: 'Search by note' })
+  @IsOptional()
+  @IsString()
+  search?: string;
+
   @ApiPropertyOptional({ description: 'Filter by start date (ISO string)' })
   @IsOptional()
   @IsDateString()

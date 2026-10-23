@@ -4,6 +4,11 @@
     "yearlyCategoryAnalysisFetched": "Yearly category analysis fetched successfully",
     "categoryTrendFetched": "Category trend fetched successfully",
     "cashflowTrendFetched": "Cashflow trend fetched successfully",
-    "topExpensesFetched": "Top expenses fetched successfully"
+    "topExpensesFetched": "Top expenses fetched successfully",
+    "deepInsightsFetched": "Deep insights fetched successfully"
+  },
+  "errors": {
+    "categoryNotFound": "Category not found",
+    "forbidden": "You do not have permission to view this category"
   }
 }

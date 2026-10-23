@@ -19,8 +19,8 @@ const TRANSFER_SELECT = {
   note: true,
   transferDate: true,
   createdAt: true,
-  fromAccount: { select: { id: true, name: true } },
-  toAccount: { select: { id: true, name: true } },
+  fromAccount: { select: { id: true, name: true, type: true } },
+  toAccount: { select: { id: true, name: true, type: true } },
 } satisfies Prisma.TransferSelect;
 
 type RawTransfer = Prisma.TransferGetPayload<{ select: typeof TRANSFER_SELECT }>;
@@ -80,10 +80,21 @@ export class TransfersService {
 
   async findAll(userId: string, query: TransferQueryDto) {
     const { page, limit, skip } = getPaginationParams(query);
-    const { startDate, endDate, orderBy = 'transferDate', order = 'desc' } = query;
+    const {
+      startDate,
+      endDate,
+      fromAccountId,
+      toAccountId,
+      search,
+      orderBy = 'transferDate',
+      order = 'desc',
+    } = query;
 
     const where: Prisma.TransferWhereInput = {
       userId,
+      ...(fromAccountId && { fromAccountId }),
+      ...(toAccountId && { toAccountId }),
+      ...(search && { note: { contains: search, mode: 'insensitive' } }),
       ...(startDate || endDate
         ? {
             transferDate: {
@@ -160,6 +171,13 @@ export class TransfersService {
 
       if (fromAccount.userId !== userId || toAccount.userId !== userId) {
         throw new ForbiddenException('transfer.errors.forbidden');
+      }
+
+      if (
+        fromAccount.type === 'FIXED_DEPOSIT' ||
+        toAccount.type === 'FIXED_DEPOSIT'
+      ) {
+        throw new UnprocessableEntityException('transfer.errors.fdLocked');
       }
     }
 

@@ -4,8 +4,18 @@ import { I18n, I18nContext } from 'nestjs-i18n';
 import { AnalyticsService } from './analytics.service';
 import { JwtAuthGuard } from '../auth/guards/auth.guard';
 import { GetUser } from 'src/common/decorators/get-user';
-import { MonthlyQueryDto, YearlyQueryDto } from './dto/payloads/analytics.query.dto';
-import { CategoryAnalysisResponseDto, TrendAmountDto, CashflowTrendDto, TopExpenseDto } from './dto/analytics.response.dto';
+import {
+  DeepInsightsQueryDto,
+  MonthlyQueryDto,
+  YearlyQueryDto,
+} from './dto/payloads/analytics.query.dto';
+import {
+  CategoryAnalysisResponseDto,
+  TrendAmountDto,
+  CashflowTrendDto,
+  TopExpenseDto,
+  DeepInsightsResponseDto,
+} from './dto/analytics.response.dto';
 import { ApiResponse } from 'src/common/common.exports';
 
 @ApiTags('Analytics')
@@ -14,6 +24,18 @@ import { ApiResponse } from 'src/common/common.exports';
 @Controller('analytics')
 export class AnalyticsController {
   constructor(private readonly analyticsService: AnalyticsService) {}
+
+  @Get('deep-insights')
+  @ApiOperation({ summary: 'Get deep monthly/yearly insights' })
+  @ApiOkResponse({ type: DeepInsightsResponseDto })
+  async getDeepInsights(
+    @GetUser('userId') userId: string,
+    @Query() query: DeepInsightsQueryDto,
+    @I18n() i18n: I18nContext,
+  ) {
+    const data = await this.analyticsService.getDeepInsights(userId, query);
+    return ApiResponse.success(data, i18n.t('analytics.success.deepInsightsFetched'));
+  }
 
   @Get('monthly-category-analysis')
   @ApiOperation({ summary: 'Get monthly category analysis' })

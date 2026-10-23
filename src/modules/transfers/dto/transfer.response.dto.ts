@@ -6,6 +6,9 @@ class TransferAccountDto {
 
   @ApiProperty()
   name: string;
+
+  @ApiPropertyOptional()
+  type?: string;
 }
 
 export class TransferResponseDto {
